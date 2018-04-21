@@ -15,6 +15,9 @@ jupyter-conf:
 	python3 -m nbopen.install_xdg
 	python2 -m ipykernel install --user
 	python3 -m ipykernel install --user
+	
+jupyter-autostart:
+	echo 'python3 -m jupyter notebook --no-browser &' >> ~/.profile
 
 git-clone:
 	sudo chown -R glucksfall:glucksfall /opt
