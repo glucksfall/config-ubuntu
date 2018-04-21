@@ -15,7 +15,13 @@ jupyter-conf:
 	python3 -m nbopen.install_xdg
 	python2 -m ipykernel install --user
 	python3 -m ipykernel install --user
-	
+
+pip2:
+	/usr/local/bin/pip2 list --outdated --format=columns | tail -n +3 | cut -d ' ' -f 1 | sudo -H xargs -n1 /usr/local/bin/pip2 install --upgrade
+
+pip3:
+	/usr/local/bin/pip3 list --outdated --format=columns | tail -n +3 | cut -d ' ' -f 1 | sudo -H xargs -n1 /usr/local/bin/pip3 install --upgrade
+
 jupyter-autostart:
 	echo 'python3 -m jupyter notebook --no-browser &' >> ~/.profile
 
@@ -27,25 +33,25 @@ git-clone:
 	git clone https://github.com/Kappa-Dev/KaSim.git /opt/git-kappa.dev-kasim-kasim3 --branch KaSim3
 	git clone https://github.com/sbmlteam/SBMLToolbox.git /opt/git-sbmlteam-sbmltoolbox-master
 	git clone https://github.com/StochSS/StochKit.git /opt/git-stochss-stochkit-master
-	git clone https://github.com/RuleWorld/bionetgen.git opt/git-ruleworld-bionetgen-master
-	git clone https://github.com/bmbolstad/RMAExpress.git opt/git-bmbolstad-rmaexpress-master
-	git clone https://github.com/bmbolstad/RMAExpress.git opt/git-bmbolstad-rmaexpress-110 --branch RMAExpress_1_1_0
-	git clone https://github.com/google/skicka.git opt/git-google-skicka-master
-	git clone https://github.com/naxo100/PISKa.git opt/git-naxo100-piska-master
-	git clone https://github.com/DLab/PISKaS.git opt/git-dlab-piskas-master
-	git clone https://github.com/opencobra/cobratoolbox.git opt/git-opencobra-cobratoolbox-master
-	git clone https://github.com/JuliaLang/IJulia.jl.git opt/git-julialang-ijulia.jl-master
-	git clone https://github.com/RuleWorld/rulebender.git opt/git-ruleworld-rulebender-master
-	git clone https://github.com/salilab/imp.git opt/git-salilab-imp-master
-	git clone https://github.com/hyattpd/Prodigal.git opt/git-hyattpd-prodigal-master
-	git clone https://github.com/RuleWorld/BioNetFit.git opt/git-posnerlab-bionetfit-master
-	git clone https://github.com/ethereum/go-ethereum.git opt/git-ethereum-goethereum-master
-	git clone https://github.com/SysBioChalmers/RAVEN.git opt/git-sysbiochalmers-raven-master
-	git clone https://github.com/20n/act.git opt/git-20n-act-master
-	git clone https://github.com/CovertLab/WholeCellViz.git opt/git-covertlab-wholecellviz-master
-	git clone https://github.com/jhcepas/eggnog-mapper.git opt/git-jhcepas-eggnog-mapper-master
-	git clone https://github.com/borenstein-lab/CoMiDA.git opt/git-borenstein-lab-comida-master
-	git clone https://github.com/cryptoluka/CryptoLuKa.git opt/git-cryptoluka-cryptoluka-master
+	git clone https://github.com/RuleWorld/bionetgen.git /opt/git-ruleworld-bionetgen-master
+	git clone https://github.com/bmbolstad/RMAExpress.git /opt/git-bmbolstad-rmaexpress-master
+	git clone https://github.com/bmbolstad/RMAExpress.git /opt/git-bmbolstad-rmaexpress-110 --branch RMAExpress_1_1_0
+	git clone https://github.com/google/skicka.git /opt/git-google-skicka-master
+	git clone https://github.com/naxo100/PISKa.git /opt/git-naxo100-piska-master
+	git clone https://github.com/DLab/PISKaS.git /opt/git-dlab-piskas-master
+	git clone https://github.com/opencobra/cobratoolbox.git /opt/git-opencobra-cobratoolbox-master
+	git clone https://github.com/JuliaLang/IJulia.jl.git /opt/git-julialang-ijulia.jl-master
+	git clone https://github.com/RuleWorld/rulebender.git /opt/git-ruleworld-rulebender-master
+	git clone https://github.com/salilab/imp.git /opt/git-salilab-imp-master
+	git clone https://github.com/hyattpd/Prodigal.git /opt/git-hyattpd-prodigal-master
+	git clone https://github.com/RuleWorld/BioNetFit.git /opt/git-posnerlab-bionetfit-master
+	git clone https://github.com/ethereum/go-ethereum.git /opt/git-ethereum-goethereum-master
+	git clone https://github.com/SysBioChalmers/RAVEN.git /opt/git-sysbiochalmers-raven-master
+	git clone https://github.com/20n/act.git /opt/git-20n-act-master
+	git clone https://github.com/CovertLab/WholeCellViz.git /opt/git-covertlab-wholecellviz-master
+	git clone https://github.com/jhcepas/eggnog-mapper.git /opt/git-jhcepas-eggnog-mapper-master
+	git clone https://github.com/borenstein-lab/CoMiDA.git /opt/git-borenstein-lab-comida-master
+	git clone https://github.com/cryptoluka/CryptoLuKa.git /opt/git-cryptoluka-cryptoluka-master
 
 mariadb-conf:
 	sudo apt-get install mariadb-server
