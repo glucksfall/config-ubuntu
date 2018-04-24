@@ -16,10 +16,10 @@ jupyter-conf:
 	python2 -m ipykernel install --user
 	python3 -m ipykernel install --user
 
-pip2:
+pip2-update:
 	/usr/local/bin/pip2 list --outdated --format=columns | tail -n +3 | cut -d ' ' -f 1 | sudo -H xargs -n1 /usr/local/bin/pip2 install --upgrade
 
-pip3:
+pip3-update:
 	/usr/local/bin/pip3 list --outdated --format=columns | tail -n +3 | cut -d ' ' -f 1 | sudo -H xargs -n1 /usr/local/bin/pip3 install --upgrade
 
 jupyter-autostart:
@@ -44,7 +44,8 @@ git-clone:
 	git clone https://github.com/RuleWorld/rulebender.git /opt/git-ruleworld-rulebender-master
 	git clone https://github.com/salilab/imp.git /opt/git-salilab-imp-master
 	git clone https://github.com/hyattpd/Prodigal.git /opt/git-hyattpd-prodigal-master
-	git clone https://github.com/RuleWorld/BioNetFit.git /opt/git-posnerlab-bionetfit-master
+	git clone https://github.com/RuleWorld/BioNetFit.git /opt/git-ruleworld-bionetfit-master
+	git clone https://github.com/PosnerLab/BioNetFit.git /opt/git-posnerlab-bionetfit-master
 	git clone https://github.com/ethereum/go-ethereum.git /opt/git-ethereum-goethereum-master
 	git clone https://github.com/SysBioChalmers/RAVEN.git /opt/git-sysbiochalmers-raven-master
 	git clone https://github.com/20n/act.git /opt/git-20n-act-master
