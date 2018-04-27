@@ -16,6 +16,16 @@ jupyter-conf:
 	python2 -m ipykernel install --user
 	python3 -m ipykernel install --user
 
+compile-python3:
+	wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz
+	tar xvzf Python-3.6.5.tgz
+	cd Python-3.6.5
+	make clean
+	./configure --prefix=$HOME/python-3.6.5
+	make
+	make test
+	make install
+
 pip2-update:
 	/usr/local/bin/pip2 list --outdated --format=columns | tail -n +3 | cut -d ' ' -f 1 | sudo -H xargs -n1 /usr/local/bin/pip2 install --upgrade
 
