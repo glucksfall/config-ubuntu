@@ -2,15 +2,15 @@ apt-install:
 	sudo apt-get update
 	sudo apt-get upgrade
 	sudo apt-get dist-upgrade
-	sudo apt-get remove xul-ext-ubufox gedit totem rhythmbox vim
-	sudo apt-get install gnome-tweak-tool gnome-themes-standard python-pip python3-pip htop kate kompare chrome-gnome-shell opam openjdk-8-jre lm-sensors synaptic gparted gimp inkscape nautilus-dropbox vlc texstudio texlive-full apt-file python3-tk python-tk python-rpy2 slurm-wlm
+	sudo apt-get remove xul-ext-ubufox gedit
+	sudo apt-get install gnome-tweak-tool gnome-themes-standard python-pip python3-pip htop kate kompare chrome-gnome-shell opam openjdk-8-jre lm-sensors synaptic gparted gimp inkscape nautilus-dropbox vlc texstudio texlive-full apt-file python3-tk python-tk
 	sudo apt-get autoremove
 	sudo apt-get autoclean
-	sudo apt-get clena
+	sudo apt-get clean
 
 jupyter-conf:
-	sudo -H pip3 install jupyter ipykernel pandas cobra escher seaborn bokeh nbopen dnaplotlib pysb
-	sudo -H pip2 install jupyter ipykernel pandas cobra escher seaborn bokeh nbopen dnaplotlib pysb
+	sudo -H pip3 install jupyter jupyterlab ipykernel pandas cobra escher seaborn bokeh nbopen dnaplotlib pysb
+	sudo -H pip2 install jupyter jupyterlab ipykernel pandas cobra escher seaborn bokeh nbopen dnaplotlib pysb
 
 	python3 -m nbopen.install_xdg
 	python2 -m ipykernel install --user
@@ -80,10 +80,10 @@ mariadb-conf:
 install-others:
 	sudo dpkg -i /opt/ubuntu-software/gitter_3.1.0_amd64.deb
 	sudo dpkg -i /opt/ubuntu-software/google-chrome-stable_current_amd64.deb
-	sudo dpkg -i /opt/ubuntu-software/mendeleydesktop_1.17.11-stable_amd64.deb
+	sudo dpkg -i /opt/ubuntu-software/mendeleydesktop_1.17.13-stable_amd64.deb
 	sudo dpkg -i /opt/ubuntu-software/prey_1.6.5_amd64.deb
 	sudo dpkg -i /opt/ubuntu-software/snapgene_viewer_3.3.3_linux.deb
-	sudo dpkg -i /opt/ubuntu-software/whatsie-2.1.0-linux-amd64.deb
+	#sudo dpkg -i /opt/ubuntu-software/whatsie-2.1.0-linux-amd64.deb
 	sudo chown -R glucksfall:glucksfall /opt
 
 	sudo apt-get install -f
