@@ -99,3 +99,7 @@ install-others:
 	tar xvzf /opt/ubuntu-software/gurobi7.5.2_linux64.tar.gz -C /opt
 	tar xvzf /opt/ubuntu-software/COPASI-4.23.184-Linux-64bit.tar.gz -C /opt
 	unzip /opt/ubuntu-software/matlab_R2017b_glnxa64.zip -d /opt/MATLAB
+
+resume-network:
+	sudo nano /etc/systemd/system/wifi-resume.service
+	sudo systemctl enable wifi-resume.service
