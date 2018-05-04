@@ -5,7 +5,7 @@ apt-install:
 	sudo apt-get remove xul-ext-ubufox gedit
 	sudo apt-get install gnome-tweak-tool gnome-themes-standard python-pip python3-pip htop kate kompare chrome-gnome-shell \
 	opam openjdk-8-jre lm-sensors synaptic gparted gimp inkscape nautilus-dropbox vlc texstudio texlive-full apt-file \
-	python3-tk python-tk autoconf libtool cmake net-tools sshfs libopenmpi-dev npm
+	python3-tk python-tk autoconf libtool cmake net-tools sshfs libopenmpi-dev npm libcanberra-gtk-module libcanberra-gtk3-module
 	
 	sudo apt-get autoremove
 	sudo apt-get autoclean
@@ -20,8 +20,8 @@ jupyter-conf:
 	python3 -m ipykernel install --user
 
 RISE-conf:
-	jupyter-nbextension install rise --py --sys-prefix
-	jupyter-nbextension enable rise --py --sys-prefix
+	sudo jupyter-nbextension install rise --py --sys-prefix
+	sudo jupyter-nbextension enable rise --py --sys-prefix
 
 compile-python3:
 	sudo apt-get install libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev \
