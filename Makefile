@@ -12,8 +12,8 @@ apt-install:
 	sudo apt-get clean
 
 jupyter-conf:
-	sudo -H pip3 install jupyter jupyterlab ipykernel pandas cobra escher seaborn bokeh nbopen dnaplotlib pysb testresources twine rise jupyter_contrib_nbextensions
-	sudo -H pip2 install jupyter jupyterlab ipykernel pandas cobra escher seaborn bokeh nbopen dnaplotlib pysb testresources twine rise jupyter_contrib_nbextensions
+	sudo -H pip3 install jupyter jupyterlab ipykernel pandas cobra escher seaborn bokeh nbopen dnaplotlib pysb testresources twine rise jupyter_contrib_nbextensions pillow
+	sudo -H pip2 install jupyter jupyterlab ipykernel pandas cobra escher seaborn bokeh nbopen dnaplotlib pysb testresources twine rise jupyter_contrib_nbextensions pillow
 
 	python3 -m nbopen.install_xdg
 	python2 -m ipykernel install --user
