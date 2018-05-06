@@ -12,19 +12,19 @@ apt-install:
 	sudo apt-get clean
 
 install-python-packages-local:
-	~/bin/python3 -c "import pip; pip.main(['install', 'pandas', 'cobra', 'escher', 'seaborn', 'bokeh', 'dnaplotlib', 'pysb'])
+	~/bin/python3 -c "import pip; pip.main(['install', 'pandas', 'cobra', 'escher', 'seaborn', 'bokeh', 'dnaplotlib', 'pysb'])"
 
 install-python-packages-system:
-	sudo -H python3 -c "import pip; pip.main(['install', 'pandas', 'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb'])
-	sudo -H python2 -c "import pip; pip.main(['install', 'pandas', 'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb'])
+	sudo -H python3 -c "import pip; pip.main(['install', 'pandas', 'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb'])"
+	sudo -H python2 -c "import pip; pip.main(['install', 'pandas', 'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb'])"
 
 install-python-packages-developing:
-	sudo -H python3 -c "import pip; pip.main(['install', 'testresources', 'twine'])
-	sudo -H python2 -c "import pip; pip.main(['install', 'testresources', 'twine'])
+	sudo -H python3 -c "import pip; pip.main(['install', 'testresources', 'twine'])"
+	sudo -H python2 -c "import pip; pip.main(['install', 'testresources', 'twine'])"
 
 conf-jupyter-system:
-	sudo -H python3 -c "import pip; pip.main(['install', 'jupyter', 'jupyterlab', 'ipykernel', 'nbopen', 'rise', 'jupyter_contrib_nbextensions'])
-	sudo -H python2 -c "import pip; pip.main(['install', 'jupyter', 'jupyterlab', 'ipykernel', 'nbopen', 'rise', 'jupyter_contrib_nbextensions'])
+	sudo -H python3 -c "import pip; pip.main(['install', 'jupyter', 'jupyterlab', 'ipykernel', 'nbopen', 'rise', 'jupyter_contrib_nbextensions'])"
+	sudo -H python2 -c "import pip; pip.main(['install', 'jupyter', 'jupyterlab', 'ipykernel', 'nbopen', 'rise', 'jupyter_contrib_nbextensions'])"
 
 	python3 -m nbopen.install_xdg
 	python2 -m ipykernel install --user
