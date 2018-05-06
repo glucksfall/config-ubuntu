@@ -12,7 +12,7 @@ apt-install:
 	sudo apt-get clean
 
 install-python-packages-local:
-	~/bin/python3 -c "import pip; pip.main(['install', 'pandas', 'cobra', 'escher', 'seaborn', 'bokeh', 'dnaplotlib', 'pysb'])"
+	~/bin/python3 -c "import pip; pip.main(['install', 'pandas', 'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb'])"
 
 install-python-packages-system:
 	sudo -H python3 -c "import pip; pip.main(['install', 'pandas', 'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb'])"
