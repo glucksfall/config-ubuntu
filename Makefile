@@ -11,20 +11,30 @@ apt-install:
 	sudo apt-get autoclean
 	sudo apt-get clean
 
-jupyter-conf:
-	sudo -H pip3 install jupyter jupyterlab ipykernel pandas cobra escher seaborn bokeh nbopen dnaplotlib pysb testresources twine rise jupyter_contrib_nbextensions pillow
-	sudo -H pip2 install jupyter jupyterlab ipykernel pandas cobra escher seaborn bokeh nbopen dnaplotlib pysb testresources twine rise jupyter_contrib_nbextensions pillow
+install-python-packages-local:
+	~/bin/python3 -c "import pip; pip.main(['install', 'pandas', 'cobra', 'escher', 'seaborn', 'bokeh', 'dnaplotlib', 'pysb'])
+
+install-python-packages-system:
+	sudo -H python3 -c "import pip; pip.main(['install', 'pandas', 'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb'])
+	sudo -H python2 -c "import pip; pip.main(['install', 'pandas', 'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb'])
+
+install-python-packages-developing:
+	sudo -H python3 -c "import pip; pip.main(['install', 'testresources', 'twine'])
+	sudo -H python2 -c "import pip; pip.main(['install', 'testresources', 'twine'])
+
+conf-jupyter-system:
+	sudo -H python3 -c "import pip; pip.main(['install', 'jupyter', 'jupyterlab', 'ipykernel', 'nbopen', 'rise', 'jupyter_contrib_nbextensions'])
+	sudo -H python2 -c "import pip; pip.main(['install', 'jupyter', 'jupyterlab', 'ipykernel', 'nbopen', 'rise', 'jupyter_contrib_nbextensions'])
 
 	python3 -m nbopen.install_xdg
 	python2 -m ipykernel install --user
 	python3 -m ipykernel install --user
 
-RISE-conf:
 	sudo jupyter-nbextension install rise --py --sys-prefix
 	sudo jupyter-nbextension enable rise --py --sys-prefix
 
 .ONESHELL:
-compile-python3:
+install-python3-from-source:
 	sudo apt-get install libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev \
 	libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev
 	
@@ -37,10 +47,10 @@ compile-python3:
 	#make test
 	make install
 
-pip2-update:
+update-python2-packages:
 	pip2 list --outdated --format=columns | tail -n +3 | cut -d ' ' -f 1 | sudo -H xargs -n1 pip2 install --upgrade
 
-pip3-update:
+update-python3-packages:
 	pip3 list --outdated --format=columns | tail -n +3 | cut -d ' ' -f 1 | sudo -H xargs -n1 pip3 install --upgrade
 
 jupyter-autostart:
