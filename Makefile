@@ -20,8 +20,8 @@ install-python-packages-system:
 	sudo -H python2 -c "import pip; pip.main(['install', 'pandas', 'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb'])"
 
 install-python-packages-developing:
-	sudo -H python3 -c "import pip; pip.main(['install', 'testresources', 'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme'])"
-	sudo -H python2 -c "import pip; pip.main(['install', 'testresources', 'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme'])"
+	sudo -H python3 -c "import pip; pip.main(['install', 'testresources', 'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme', 'versioneer'])"
+	sudo -H python2 -c "import pip; pip.main(['install', 'testresources', 'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme', 'versioneer'])"
 
 conf-jupyter-system:
 	sudo -H python3 -c "import pip; pip.main(['install', 'jupyter', 'jupyterlab', 'ipykernel', 'nbopen', 'rise', 'jupyter_contrib_nbextensions'])"
