@@ -6,7 +6,7 @@ apt-install:
 	sudo apt-get -y install gnome-tweak-tool gnome-themes-standard python-pip python3-pip htop kate kompare chrome-gnome-shell \
 	opam openjdk-8-jre lm-sensors synaptic gparted gimp inkscape nautilus-dropbox vlc texstudio texlive-full apt-file \
 	python3-tk python-tk autoconf libtool cmake net-tools sshfs libopenmpi-dev npm libcanberra-gtk-module libcanberra-gtk3-module \
-	android-tools-adb android-tools-fastboot
+	android-tools-adb android-tools-fastboot libgirepository1.0-dev
 	
 	sudo apt-get autoremove
 	sudo apt-get autoclean
