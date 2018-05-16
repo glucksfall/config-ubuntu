@@ -177,6 +177,8 @@ slurm-conf:
 	sudo chown -R slurm:slurm /var/run/slurm-llnl/
 	sudo chown -R slurm:slurm /var/lib/slurm-llnl/
 	sudo chown -R slurm:slurm /var/log/slurm-llnl/
+	sudo mkdir /var/spool/slurmd
+	sudo chown -R slurm:slurm /var/spool/slurmd
 	
 #	sudo apt-get install mariadb-server
 #	sudo systemctl enable mysql
