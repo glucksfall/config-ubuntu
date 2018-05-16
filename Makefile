@@ -10,7 +10,7 @@ apt-install:
 	nautilus-dropbox vlc texstudio texlive-full apt-file python3-tk \
 	python-tk autoconf libtool cmake net-tools sshfs libopenmpi-dev npm \
 	libcanberra-gtk-module libcanberra-gtk3-module android-tools-adb \
-	android-tools-fastboot libgirepository1.0-dev
+	android-tools-fastboot libgirepository1.0-dev virtualbox
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
