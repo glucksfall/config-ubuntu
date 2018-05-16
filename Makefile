@@ -170,11 +170,18 @@ git-clone:
 	git clone https://github.com/SysBioChalmers/RAVEN.git \
 	/opt/git-sysbiochalmers-raven-master
 
-mariadb-conf:
-	sudo apt-get install mariadb-server
-	sudo systemctl enable mysql
-	sudo systemctl start mysql
-	sudo mysql -u root
+slurm-conf:
+	sudo apt-get -y install slurm-wlm
+	sudo nano /etc/slurm-llnl/slurm.conf
+	
+	sudo chown -R slurm:slurm /var/run/slurm-llnl/
+	sudo chown -R slurm:slurm /var/lib/slurm-llnl/
+	sudo chown -R slurm:slurm /var/log/slurm-llnl/
+	
+#	sudo apt-get install mariadb-server
+#	sudo systemctl enable mysql
+#	sudo systemctl start mysql
+#	sudo mysql -u root
 # 	create database slurm_acct_db;
 # 	create user 'slurm'@'localhost';
 # 	set password for 'slurm'@'localhost' = password('slurmdbpass');
