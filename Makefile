@@ -10,7 +10,7 @@ apt-install:
 	nautilus-dropbox vlc texstudio texlive-full apt-file python3-tk \
 	python-tk autoconf libtool cmake net-tools sshfs libopenmpi-dev npm \
 	libcanberra-gtk-module libcanberra-gtk3-module android-tools-adb \
-	android-tools-fastboot libgirepository1.0-dev virtualbox
+	android-tools-fastboot libgirepository1.0-dev virtualbox curl
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
@@ -191,6 +191,33 @@ slurm-conf:
 # 	grant all privileges on slurm_acct_db.* to 'slurm'@'localhost';
 # 	flush privileges;
 # 	exit
+
+gcp-conf:
+	export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+	
+	echo "deb https://packages.cloud.google.com/apt \
+	$CLOUD_SDK_REPO main" | sudo tee -a \
+	/etc/apt/sources.list.d/google-cloud-sdk.list
+	
+	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
+	| sudo apt-key add -
+	
+	sudo apt-get update
+	sudo apt-get install google-cloud-sdk \
+	google-cloud-sdk-app-engine-python \
+	google-cloud-sdk-app-engine-python-extras \
+	google-cloud-sdk-app-engine-java \
+	google-cloud-sdk-app-engine-go \
+	google-cloud-sdk-datalab \
+	google-cloud-sdk-datastore-emulator \
+	google-cloud-sdk-pubsub-emulator \
+	google-cloud-sdk-cbt google-cloud-sdk-bigtable-emulator \
+	kubectl
+
+gcp-uninstall:
+	#gcloud info --format='value(installation.sdk_root)'
+	sudo rm -r $(gcloud info --format='value(installation.sdk_root)')
+	rm -r $(gcloud info --format='value(config.paths.global_config_dir)')
 
 .ONESHELL:
 install-others:
