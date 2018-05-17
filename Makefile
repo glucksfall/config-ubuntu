@@ -10,7 +10,8 @@ apt-install:
 	nautilus-dropbox vlc texstudio texlive-full apt-file python3-tk \
 	python-tk autoconf libtool cmake net-tools sshfs libopenmpi-dev npm \
 	libcanberra-gtk-module libcanberra-gtk3-module android-tools-adb \
-	android-tools-fastboot libgirepository1.0-dev virtualbox curl
+	android-tools-fastboot libgirepository1.0-dev virtualbox curl \
+	gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
@@ -163,6 +164,9 @@ git-clone:
 
 	git clone https://github.com/sbmlteam/SBMLToolbox.git \
 	/opt/git-sbmlteam-sbmltoolbox-master
+	
+	git clone https://github.com/SchedMD/slurm.git \
+	/opt/git-schedmd-slurm-master
 
 	git clone https://github.com/StochSS/StochKit.git \
 	/opt/git-stochss-stochkit-master
