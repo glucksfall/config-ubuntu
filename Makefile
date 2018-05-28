@@ -11,7 +11,7 @@ apt-install:
 	python-tk autoconf libtool cmake net-tools sshfs libopenmpi-dev npm \
 	libcanberra-gtk-module libcanberra-gtk3-module android-tools-adb \
 	android-tools-fastboot libgirepository1.0-dev virtualbox curl \
-	gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0
+	gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0 rar
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
@@ -19,14 +19,17 @@ apt-install:
 
 install-python-packages-local:
 	~/bin/python3 -c "import pip; pip.main(['install', 'pandas', \
-	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb'])"
+	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
+	'biopython', ])"
 
 install-python-packages-system:
 	sudo -H python3 -c "import pip; pip.main(['install', 'pandas', \
-	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb'])"
+	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
+	'biopython', ])"
 
 	sudo -H python2 -c "import pip; pip.main(['install', 'pandas', \
-	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb'])"
+	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
+	'biopython', ])"
 
 install-python-packages-developing:
 	sudo -H python3 -c "import pip; pip.main(['install', 'testresources', \
