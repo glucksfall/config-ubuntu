@@ -69,7 +69,7 @@ install-python3-from-source:
 	cd ~/opt/Python-3.6.5
 	if [ -f Makefile ]; then make clean; fi
 	if [ -d $(HOME)/opt/python-3.6.5]; then rm -rf $(HOME)/opt/python-3.6.5; fi
-	./configure --prefix=$(HOME)/opt/python-3.6.5
+	./configure --prefix=$(HOME)/opt/python-3.6.5 --enable-optimizations
 	make
 	#make test
 	make install
