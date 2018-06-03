@@ -64,9 +64,11 @@ install-python3-from-source:
 
 	wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz \
 	-O ~/opt/ubuntu-software/Python-3.6.5.tgz
+	if [ -d ~/opt/Python-3.6.5 ]; then rm -rf ~/opt/Python-3.6.5; fi
 	tar xvzf ~/opt/ubuntu-software/Python-3.6.5.tgz -C ~/opt
 	cd ~/opt/Python-3.6.5
 	if [ -f Makefile ]; then make clean; fi
+	if [ -d $(HOME)/opt/python3]; then rm -rf $(HOME)/opt/python3; fi
 	./configure --prefix=$(HOME)/opt/python3
 	make
 	#make test
