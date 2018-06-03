@@ -68,8 +68,8 @@ install-python3-from-source:
 	tar xvzf ~/opt/ubuntu-software/Python-3.6.5.tgz -C ~/opt
 	cd ~/opt/Python-3.6.5
 	if [ -f Makefile ]; then make clean; fi
-	if [ -d $(HOME)/opt/python3]; then rm -rf $(HOME)/opt/python3; fi
-	./configure --prefix=$(HOME)/opt/python3
+	if [ -d $(HOME)/opt/python-3.6.5]; then rm -rf $(HOME)/opt/python-3.6.5; fi
+	./configure --prefix=$(HOME)/opt/python-3.6.5
 	make
 	#make test
 	make install
