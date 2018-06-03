@@ -69,7 +69,7 @@ install-python3-from-source:
 	if [ -f Makefile ]; then make clean; fi
 	./configure --prefix=$(HOME)/opt/python3
 	make
-	make test
+	#make test
 	make install
 
 update-pip3:
