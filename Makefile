@@ -235,7 +235,7 @@ install-others:
 	sudo dpkg -i google-chrome-stable_current_amd64.deb
 	sudo dpkg -i mendeleydesktop_1.17.13-stable_amd64.deb
 	sudo dpkg -i prey_1.6.5_amd64.deb
-	sudo dpkg -i snapgene_viewer_3.3.3_linux.deb
+	sudo dpkg -i snapgene_viewer_4.1.9_linux.deb
 	sudo dpkg -i whatsie-2.1.0-linux-amd64.deb
 
 	sudo chown -R glucksfall:glucksfall /opt
