@@ -11,7 +11,8 @@ apt-install:
 	python-tk autoconf libtool cmake net-tools sshfs libopenmpi-dev npm \
 	libcanberra-gtk-module libcanberra-gtk3-module android-tools-adb \
 	android-tools-fastboot libgirepository1.0-dev virtualbox curl \
-	gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0 rar
+	gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0 rar \
+	libreoffice
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
@@ -73,23 +74,23 @@ install-python3-from-source:
 	make
 	make install
 
-update-pip3:
-	sudo -H python3 -c \
-	"import pip; pip.main(['install', '--upgrade', 'pip'])"
+#update-pip3:
+#	sudo -H python3 -c \
+#	"import pip; pip.main(['install', '--upgrade', 'pip'])"
 
 update-python3-packages:
-	/usr/local/bin/pip3 list --outdated --format=columns \
+	$(which pip3) list --outdated --format=columns \
 	| tail -n +3 | cut -d ' ' -f 1 | \
-	sudo -H xargs -n1 /usr/local/bin/pip3 install --upgrade
+	sudo -H xargs -n1 $(which pip3) install --upgrade
 
-update-pip2:
-	sudo -H python2 -c \
-	"import pip; pip.main(['install', '--upgrade', 'pip'])"
+#update-pip2:
+#	sudo -H python2 -c \
+#	"import pip; pip.main(['install', '--upgrade', 'pip'])"
 
 update-python2-packages:
-	/usr/local/bin/pip list --outdated --format=columns \
+	$(which pip) list --outdated --format=columns \
 	| tail -n +3 | cut -d ' ' -f 1 | \
-	sudo -H xargs -n1 /usr/local/bin/pip install --upgrade
+	sudo -H xargs -n1 $(which pip3) install --upgrade
 
 jupyter-autostart:
 	echo 'python3 -m jupyter notebook --no-browser &' >> ~/.profile
