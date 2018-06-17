@@ -80,9 +80,9 @@ install-python3-from-source:
 
 .ONESHELL:
 update-python3-packages:
-	$(which pip3) list --outdated --format=columns \
+	$$(which pip3) list --outdated --format=columns \
 	| tail -n +3 | cut -d ' ' -f 1 | \
-	sudo -H xargs -n1 $(which pip3) install --upgrade
+	sudo -H xargs -n1 $$(which pip3) install --upgrade
 
 #update-pip2:
 #	sudo -H python2 -c \
@@ -90,9 +90,9 @@ update-python3-packages:
 
 .ONESHELL:
 update-python2-packages:
-	$(which pip) list --outdated --format=columns \
+	$$(which pip) list --outdated --format=columns \
 	| tail -n +3 | cut -d ' ' -f 1 | \
-	sudo -H xargs -n1 $(which pip3) install --upgrade
+	sudo -H xargs -n1 $$(which pip) install --upgrade
 
 jupyter-autostart:
 	echo 'python3 -m jupyter notebook --no-browser &' >> ~/.profile
