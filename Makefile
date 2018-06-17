@@ -78,6 +78,7 @@ install-python3-from-source:
 #	sudo -H python3 -c \
 #	"import pip; pip.main(['install', '--upgrade', 'pip'])"
 
+.ONESHELL:
 update-python3-packages:
 	$(which pip3) list --outdated --format=columns \
 	| tail -n +3 | cut -d ' ' -f 1 | \
@@ -87,6 +88,7 @@ update-python3-packages:
 #	sudo -H python2 -c \
 #	"import pip; pip.main(['install', '--upgrade', 'pip'])"
 
+.ONESHELL:
 update-python2-packages:
 	$(which pip) list --outdated --format=columns \
 	| tail -n +3 | cut -d ' ' -f 1 | \
