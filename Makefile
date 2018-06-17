@@ -69,8 +69,8 @@ install-python3-from-source:
 	tar xvzf ~/opt/ubuntu-software/Python-3.6.5.tgz -C ~/opt
 	cd ~/opt/Python-3.6.5
 	if [ -f Makefile ]; then make clean; fi
-	if [ -d $(HOME)/opt/python-3.6.5 ]; then rm -rf $(HOME)/opt/python-3.6.5; fi
-	./configure --prefix=$(HOME)/opt/python-3.6.5 --enable-optimizations
+	if [ -d $$(HOME)/opt/python-3.6.5 ]; then rm -rf $$(HOME)/opt/python-3.6.5; fi
+	./configure --prefix=$$(HOME)/opt/python-3.6.5 --enable-optimizations
 	make
 	make install
 
@@ -227,7 +227,7 @@ gcp-conf:
 
 gcp-uninstall:
 	#gcloud info --format='value(installation.sdk_root)'
-	sudo rm -r $(gcloud info --format='value(installation.sdk_root)')
+	sudo rm -r $$(gcloud info --format='value(installation.sdk_root)')
 	rm -r $(gcloud info --format='value(config.paths.global_config_dir)')
 
 .ONESHELL:
