@@ -252,4 +252,7 @@ install-others:
 
 	tar xvzf gurobi7.5.2_linux64.tar.gz -C /opt
 	tar xvzf COPASI-4.23.184-Linux-64bit.tar.gz -C /opt
-	unzip matlab_R2017b_glnxa64.zip -d /opt/MATLAB
+	
+	if [ -d /opt/matlab_R2017b_glnxa64 ]; \
+	then unzip matlab_R2017b_glnxa64.zip -d /opt/matlab_R2017b_glnxa64; \
+	done
