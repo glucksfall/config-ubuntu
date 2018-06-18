@@ -234,12 +234,27 @@ gcp-uninstall:
 install-others:
 	cd /opt/ubuntu-software/
 
-	sudo dpkg -i gitter_3.1.0_amd64.deb
-	sudo dpkg -i google-chrome-stable_current_amd64.deb
-	sudo dpkg -i mendeleydesktop_1.17.13-stable_amd64.deb
+	if [[ ! -d /opt/Gitter ]]; then \
+	sudo dpkg -i gitter_3.1.0_amd64.deb; \
+	fi
+	
+	if [[ ! -d /opt/google/chrome ]]; then \
+	sudo dpkg -i google-chrome-stable_current_amd64.deb; \
+	fi
+	
+	if [[ ! -d /opt/mendeleydesktop ]; then \
+	sudo dpkg -i mendeleydesktop_1.17.13-stable_amd64.deb; \
+	fi
+	
 	sudo dpkg -i prey_1.6.5_amd64.deb
-	sudo dpkg -i snapgene_viewer_4.1.9_linux.deb
-	sudo dpkg -i whatsie-2.1.0-linux-amd64.deb
+	
+	if [[ ! -d /opt/gslbiotech/snapgene-viewer ]]; then \
+	sudo dpkg -i snapgene_viewer_4.1.9_linux.deb; \
+	fi
+	
+	if [[ ! -d /opt/whatsie ]]; then \
+	sudo dpkg -i whatsie-2.1.0-linux-amd64.deb; \
+	fi
 
 	sudo chown -R glucksfall:glucksfall /opt
 
@@ -253,6 +268,6 @@ install-others:
 	tar xvzf gurobi7.5.2_linux64.tar.gz -C /opt
 	tar xvzf COPASI-4.23.184-Linux-64bit.tar.gz -C /opt
 	
-	if [ -d /opt/matlab_R2017b_glnxa64 ]; \
+	if [[ ! -d /opt/matlab_R2017b_glnxa64 ]]; \
 	then unzip matlab_R2017b_glnxa64.zip -d /opt/matlab_R2017b_glnxa64; \
-	done
+	fi
