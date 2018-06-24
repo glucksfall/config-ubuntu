@@ -64,13 +64,26 @@ install-python3-from-source:
 	libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev
 
 	wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz \
-	-O ~/opt/ubuntu-software/Python-3.6.5.tgz
-	if [ -d ~/opt/Python-3.6.5 ]; then rm -rf ~/opt/Python-3.6.5; fi
-	tar xvzf ~/opt/ubuntu-software/Python-3.6.5.tgz -C ~/opt
-	cd ~/opt/Python-3.6.5
+	-O $$(HOME)/opt/ubuntu-software/Python-3.6.5.tgz
+	if [ -d $$(HOME)/opt/Python-3.6.5 ]; then rm -rf $$(HOME)/opt/Python-3.6.5; fi
+	tar xvzf $$(HOME)/opt/ubuntu-software/Python-3.6.5.tgz -C ~/opt
+	cd $$(HOME)/opt/Python-3.6.5
 	if [ -f Makefile ]; then make clean; fi
 	if [ -d $$(HOME)/opt/python-3.6.5 ]; then rm -rf $$(HOME)/opt/python-3.6.5; fi
 	./configure --prefix=$$(HOME)/opt/python-3.6.5 --enable-optimizations
+	make
+	make install
+
+.ONESHELL:
+install-r-from-source:
+	wget https://cloud.r-project.org/bin/linux/ubuntu/bionic-cran35/r-base_3.5.0.orig.tar.gz \
+	-O $$(HOME)/opt/ubuntu-software/R-3.5.0.tgz
+	if [ -d $$(HOME)/opt/R-3.5.0 ]; then rm -rf $$(HOME)/opt/R-3.5.0; fi
+	tar xvzf $$(HOME)/opt/ubuntu-software/R-3.5.0.tgz -C $$(HOME)/opt
+	cd $$(HOME)/opt/R-3.5.0
+	if [ -f Makefil ]; then make clean; fi
+	if [ -d $$(HOME)/opt/r-3.5.0 ]; then rm -rf $$(HOME)/opt/r-3.5.0; fi
+	./configure --prefix=$$(HOME)/opt/r-3.5.0 --enable-R-shlib --enable-BLAS-shlib --enable-LAPACK-shlib
 	make
 	make install
 
