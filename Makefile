@@ -21,16 +21,16 @@ apt-install:
 install-python-packages-local:
 	~/bin/python3 -c "import pip; pip.main(['install', 'pandas', \
 	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
-	'biopython', ])"
+	'biopython', 'cython', ])"
 
 install-python-packages-system:
 	sudo -H python3 -c "import pip; pip.main(['install', 'pandas', \
 	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
-	'biopython', ])"
+	'biopython', 'cython', ])"
 
 	sudo -H python2 -c "import pip; pip.main(['install', 'pandas', \
 	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
-	'biopython', ])"
+	'biopython', 'weave', ])"
 
 install-python-packages-developing:
 	sudo -H python3 -c "import pip; pip.main(['install', 'testresources', \
