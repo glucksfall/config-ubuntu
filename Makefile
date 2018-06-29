@@ -64,26 +64,26 @@ install-python3-from-source:
 	libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev
 
 	wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz \
-	-O $$(HOME)/opt/ubuntu-software/Python-3.6.5.tgz
-	if [ -d $$(HOME)/opt/Python-3.6.5 ]; then rm -rf $$(HOME)/opt/Python-3.6.5; fi
-	tar xvzf $$(HOME)/opt/ubuntu-software/Python-3.6.5.tgz -C ~/opt
-	cd $$(HOME)/opt/Python-3.6.5
+	-O $(HOME)/opt/ubuntu-software/Python-3.6.5.tgz
+	if [ -d $(HOME)/opt/Python-3.6.5 ]; then rm -rf $(HOME)/opt/Python-3.6.5; fi
+	tar xvzf $(HOME)/opt/ubuntu-software/Python-3.6.5.tgz -C ~/opt
+	cd $(HOME)/opt/Python-3.6.5
 	if [ -f Makefile ]; then make clean; fi
-	if [ -d $$(HOME)/opt/python-3.6.5 ]; then rm -rf $$(HOME)/opt/python-3.6.5; fi
-	./configure --prefix=$$(HOME)/opt/python-3.6.5 --enable-optimizations
+	if [ -d $(HOME)/opt/python-3.6.5 ]; then rm -rf $(HOME)/opt/python-3.6.5; fi
+	./configure --prefix=$(HOME)/opt/python-3.6.5 --enable-optimizations
 	make
 	make install
 
 .ONESHELL:
 install-r-from-source:
 	wget https://cloud.r-project.org/bin/linux/ubuntu/bionic-cran35/r-base_3.5.0.orig.tar.gz \
-	-O $$(HOME)/opt/ubuntu-software/R-3.5.0.tgz
-	if [ -d $$(HOME)/opt/R-3.5.0 ]; then rm -rf $$(HOME)/opt/R-3.5.0; fi
-	tar xvzf $$(HOME)/opt/ubuntu-software/R-3.5.0.tgz -C $$(HOME)/opt
-	cd $$(HOME)/opt/R-3.5.0
+	-O $(HOME)/opt/ubuntu-software/R-3.5.0.tgz
+	if [ -d $(HOME)/opt/R-3.5.0 ]; then rm -rf $(HOME)/opt/R-3.5.0; fi
+	tar xvzf $(HOME)/opt/ubuntu-software/R-3.5.0.tgz -C $(HOME)/opt
+	cd $(HOME)/opt/R-3.5.0
 	if [ -f Makefil ]; then make clean; fi
-	if [ -d $$(HOME)/opt/r-3.5.0 ]; then rm -rf $$(HOME)/opt/r-3.5.0; fi
-	./configure --prefix=$$(HOME)/opt/r-3.5.0 --enable-R-shlib --enable-BLAS-shlib --enable-LAPACK-shlib
+	if [ -d $(HOME)/opt/r-3.5.0 ]; then rm -rf $(HOME)/opt/r-3.5.0; fi
+	./configure --prefix=$(HOME)/opt/r-3.5.0 --enable-R-shlib --enable-BLAS-shlib --enable-LAPACK-shlib
 	make
 	make install
 
@@ -93,9 +93,9 @@ install-r-from-source:
 
 .ONESHELL:
 update-python3-packages:
-	$$(which pip3) list --outdated --format=columns \
+	$(which pip3) list --outdated --format=columns \
 	| tail -n +3 | cut -d ' ' -f 1 | \
-	sudo -H xargs -n1 $$(which pip3) install --upgrade
+	sudo -H xargs -n1 $(which pip3) install --upgrade
 
 #update-pip2:
 #	sudo -H python2 -c \
@@ -103,9 +103,9 @@ update-python3-packages:
 
 .ONESHELL:
 update-python2-packages:
-	$$(which pip) list --outdated --format=columns \
+	$(which pip) list --outdated --format=columns \
 	| tail -n +3 | cut -d ' ' -f 1 | \
-	sudo -H xargs -n1 $$(which pip) install --upgrade
+	sudo -H xargs -n1 $(which pip) install --upgrade
 
 jupyter-autostart:
 	echo 'python3 -m jupyter notebook --no-browser &' >> ~/.profile
@@ -238,9 +238,10 @@ gcp-conf:
 	google-cloud-sdk-cbt google-cloud-sdk-bigtable-emulator \
 	kubectl
 
+.ONESHELL:
 gcp-uninstall:
 	#gcloud info --format='value(installation.sdk_root)'
-	sudo rm -r $$(gcloud info --format='value(installation.sdk_root)')
+	sudo rm -r $(gcloud info --format='value(installation.sdk_root)')
 	rm -r $(gcloud info --format='value(config.paths.global_config_dir)')
 
 .ONESHELL:
