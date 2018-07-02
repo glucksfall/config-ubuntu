@@ -26,20 +26,22 @@ install-python-packages-local:
 install-python-packages-system:
 	sudo -H python3 -c "import pip; pip.main(['install', 'pandas', \
 	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
-	'biopython', 'cython', ])"
+	'biopython', ])"
 
 	sudo -H python2 -c "import pip; pip.main(['install', 'pandas', \
 	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
-	'biopython', 'weave', ])"
+	'biopython', ])"
+	
+	# cython makes jupyter crush, weave (?)
 
 install-python-packages-developing:
 	sudo -H python3 -c "import pip; pip.main(['install', 'testresources', \
 	'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme', \
-	'versioneer'])"
+	'versioneer', 'pylint', ])"
 
 	sudo -H python2 -c "import pip; pip.main(['install', 'testresources', \
 	'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme', \
-	'versioneer'])"
+	'versioneer', 'pylint', ])"
 
 conf-jupyter-system:
 	sudo -H python3 -c "import pip; pip.main(['install', 'jupyter', \
