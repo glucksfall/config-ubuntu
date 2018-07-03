@@ -12,7 +12,7 @@ apt-install:
 	libcanberra-gtk-module libcanberra-gtk3-module android-tools-adb \
 	android-tools-fastboot libgirepository1.0-dev virtualbox curl \
 	gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0 rar \
-	libreoffice
+	libreoffice r-base
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
@@ -58,6 +58,12 @@ conf-jupyter-system:
 
 	sudo jupyter-nbextension install rise --py --sys-prefix
 	sudo jupyter-nbextension enable rise --py --sys-prefix
+
+add-jupyter-kernels:
+	sudo apt-get install libzmq3-dev libcurl4-openssl-dev libssl-dev # libcurl-openssl1.0-dev
+	R -e 'install.packages(c('crayon', 'pbdZMQ', 'devtools'))'
+	R -e 'devtools::install_github(paste0('IRkernel/', c('repr', 'IRdisplay', 'IRkernel')))'
+	R -e 'IRkernel::installspec()'
 
 .ONESHELL:
 install-python3-from-source:
