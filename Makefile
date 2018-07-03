@@ -60,10 +60,10 @@ conf-jupyter-system:
 	sudo jupyter-nbextension enable rise --py --sys-prefix
 
 add-jupyter-kernels:
-	sudo apt-get install libzmq3-dev libcurl4-openssl-dev libssl-dev # libcurl-openssl1.0-dev
-	R -e 'install.packages(c('crayon', 'pbdZMQ', 'devtools'))'
-	R -e 'devtools::install_github(paste0('IRkernel/', c('repr', 'IRdisplay', 'IRkernel')))'
-	R -e 'IRkernel::installspec()'
+	sudo apt-get install libzmq3-dev libcurl4-openssl-dev libssl-dev
+	sudo R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'))"
+	sudo R -e "devtools::install_github(paste0('IRkernel/', c('repr', 'IRdisplay', 'IRkernel')))"
+	R -e "IRkernel::installspec()"
 
 .ONESHELL:
 install-python3-from-source:
