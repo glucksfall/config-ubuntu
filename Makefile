@@ -108,7 +108,7 @@ install-r-3.5.0-from-source:
 	cd $(HOME)/opt/R-3.5.0
 	if [ -f Makefile ]; then make clean; fi
 	if [ -d $(HOME)/opt/r-3.5.0 ]; then rm -rf $(HOME)/opt/r-3.5.0; fi
-	./configure --prefix=$(HOME)/opt/r-3.5.0 --enable-R-shlib --enable-BLAS-shlib --enable-LAPACK-shlib
+	./configure --prefix=$(HOME)/opt/r-3.5.0 --enable-R-shlib --with-blas --with-lapack
 	make
 	make install
 
