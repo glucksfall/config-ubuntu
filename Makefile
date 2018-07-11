@@ -101,6 +101,7 @@ install-python3.7-from-source:
 
 .ONESHELL:
 install-r-3.5.0-from-source:
+	sudo apt-get install libcairo2-dev libxt-dev libtiff5-dev
 	wget https://cloud.r-project.org/bin/linux/ubuntu/bionic-cran35/r-base_3.5.0.orig.tar.gz \
 	-O $(HOME)/opt/ubuntu-software/R-3.5.0.tgz
 	if [ -d $(HOME)/opt/R-3.5.0 ]; then rm -rf $(HOME)/opt/R-3.5.0; fi
