@@ -12,7 +12,7 @@ apt-install:
 	libcanberra-gtk-module libcanberra-gtk3-module android-tools-adb \
 	android-tools-fastboot libgirepository1.0-dev virtualbox curl \
 	gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0 rar \
-	libreoffice r-base
+	libreoffice r-base rename
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
