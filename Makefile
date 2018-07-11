@@ -62,7 +62,7 @@ conf-jupyter-system:
 add-jupyter-kernels:
 	sudo apt-get install libzmq3-dev libcurl4-openssl-dev libssl-dev
 	sudo R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'))"
-	sudo R -e "devtools::install_github(paste0('IRkernel/', c('repr', 'IRdisplay', 'IRkernel')))"
+	sudo R -e "devtools::install_github('IRkernel/IRkernel')"
 	R -e "IRkernel::installspec()"
 
 .ONESHELL:
