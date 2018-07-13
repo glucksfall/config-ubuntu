@@ -60,16 +60,24 @@ conf-jupyter-system:
 	sudo jupyter-nbextension enable rise --py --sys-prefix
 
 add-jupyter-kernels:
-	sudo apt-get install libzmq3-dev libssl-dev
-	sudo R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'))"
-	sudo R -e "devtools::install_github('IRkernel/IRkernel')"
-	R -e "IRkernel::installspec()"
+	~/bin/R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools')); \
+	library(devtools)
+	devtools::install('/opt/git-irkernel-irkernel-master/R'); \	
+	library(IRkernel); \
+	IRkernel::installspec(name = 'dev-R')"
+	
+	sudo R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools')); \
+	library(devtools)
+	devtools::install('/opt/git-irkernel-irkernel-master/R'); \	
+	library(IRkernel); \
+	IRkernel::installspec(name = 'dev-R')"
 
 .ONESHELL:
 install-python3.6-from-source:
 	sudo apt-get install libssl-dev zlib1g-dev libncurses5-dev \
 	libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev \
-	libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev libcurl4-openssl-dev
+	libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev \
+	libcurl4-openssl-dev libzmq3-dev libssl-dev
 
 	wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz \
 	-O $(HOME)/opt/ubuntu-software/Python-3.6.5.tgz
