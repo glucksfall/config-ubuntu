@@ -60,13 +60,13 @@ conf-jupyter-system:
 	sudo jupyter-nbextension enable rise --py --sys-prefix
 
 add-jupyter-kernels:
-	~/bin/R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools')); \
+	~/bin/R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'), repos = 'https://cloud.r-project.org/'); \
 	library(devtools); \
 	devtools::install('/opt/git-irkernel-irkernel-master/R'); \
 	library(IRkernel); \
 	IRkernel::installspec(name = 'dev-R')"
 
-	sudo R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools')); \
+	sudo R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'), repos = 'https://cloud.r-project.org/'); \
 	library(devtools); \
 	devtools::install('/opt/git-irkernel-irkernel-master/R'); \
 	library(IRkernel); \
