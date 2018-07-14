@@ -31,7 +31,7 @@ install-python-packages-system:
 	sudo -H python2 -c "import pip; pip.main(['install', 'pandas', \
 	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
 	'biopython', ])"
-	
+
 	# cython makes jupyter crush, weave (?)
 
 install-python-packages-developing:
@@ -61,14 +61,14 @@ conf-jupyter-system:
 
 add-jupyter-kernels:
 	~/bin/R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools')); \
-	library(devtools)
-	devtools::install('/opt/git-irkernel-irkernel-master/R'); \	
+	library(devtools); \
+	devtools::install('/opt/git-irkernel-irkernel-master/R'); \
 	library(IRkernel); \
 	IRkernel::installspec(name = 'dev-R')"
-	
+
 	sudo R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools')); \
-	library(devtools)
-	devtools::install('/opt/git-irkernel-irkernel-master/R'); \	
+	library(devtools); \
+	devtools::install('/opt/git-irkernel-irkernel-master/R'); \
 	library(IRkernel); \
 	IRkernel::installspec(name = 'dev-R')"
 
@@ -218,7 +218,7 @@ git-clone:
 
 	git clone https://github.com/sbmlteam/SBMLToolbox.git \
 	/opt/git-sbmlteam-sbmltoolbox-master
-	
+
 	git clone https://github.com/SchedMD/slurm.git \
 	/opt/git-schedmd-slurm-master
 
@@ -231,13 +231,13 @@ git-clone:
 slurm-conf:
 	sudo apt-get -y install slurm-wlm
 	sudo nano /etc/slurm-llnl/slurm.conf
-	
+
 	sudo chown -R slurm:slurm /var/run/slurm-llnl/
 	sudo chown -R slurm:slurm /var/lib/slurm-llnl/
 	sudo chown -R slurm:slurm /var/log/slurm-llnl/
 	sudo mkdir /var/spool/slurmd
 	sudo chown -R slurm:slurm /var/spool/slurmd
-	
+
 #	sudo apt-get install mariadb-server
 #	sudo systemctl enable mysql
 #	sudo systemctl start mysql
@@ -252,14 +252,14 @@ slurm-conf:
 
 gcp-conf:
 	export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
-	
+
 	echo "deb https://packages.cloud.google.com/apt \
 	$CLOUD_SDK_REPO main" | sudo tee -a \
 	/etc/apt/sources.list.d/google-cloud-sdk.list
-	
+
 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
 	| sudo apt-key add -
-	
+
 	sudo apt-get update
 	sudo apt-get install google-cloud-sdk \
 	google-cloud-sdk-app-engine-python \
@@ -285,21 +285,21 @@ install-others:
 	if [[ ! -d /opt/Gitter ]]; then \
 	sudo dpkg -i gitter_3.1.0_amd64.deb; \
 	fi
-	
+
 	if [[ ! -d /opt/google/chrome ]]; then \
 	sudo dpkg -i google-chrome-stable_current_amd64.deb; \
 	fi
-	
-	if [[ ! -d /opt/mendeleydesktop ]; then \
+
+	if [[ ! -d /opt/mendeleydesktop ]]; then \
 	sudo dpkg -i mendeleydesktop_1.17.13-stable_amd64.deb; \
 	fi
-	
+
 	sudo dpkg -i prey_1.6.5_amd64.deb
-	
+
 	if [[ ! -d /opt/gslbiotech/snapgene-viewer ]]; then \
 	sudo dpkg -i snapgene_viewer_4.1.9_linux.deb; \
 	fi
-	
+
 	if [[ ! -d /opt/whatsie ]]; then \
 	sudo dpkg -i whatsie-2.1.0-linux-amd64.deb; \
 	fi
@@ -315,7 +315,7 @@ install-others:
 
 	tar xvzf gurobi7.5.2_linux64.tar.gz -C /opt
 	tar xvzf COPASI-4.23.184-Linux-64bit.tar.gz -C /opt
-	
+
 	if [[ ! -d /opt/matlab_R2017b_glnxa64 ]]; \
 	then unzip matlab_R2017b_glnxa64.zip -d /opt/matlab_R2017b_glnxa64; \
 	fi
