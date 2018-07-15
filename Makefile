@@ -128,6 +128,7 @@ install-r-packages-local:
 	~/bin/R -e "install.packages('knitr')"
 	~/bin/R -e "install.packages('rmarkdown')"
 	~/bin/R -e "install.packages('gridExtra')"
+	~/bin/R -e "install.packages('plotly')"
 	~/bin/R -e "source('https://bioconductor.org/biocLite.R'); \
 	biocLite(); \
 	biocLite('dada2'); \
