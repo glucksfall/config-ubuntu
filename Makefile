@@ -12,7 +12,7 @@ apt-install:
 	libcanberra-gtk-module libcanberra-gtk3-module android-tools-adb \
 	android-tools-fastboot libgirepository1.0-dev virtualbox curl \
 	gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0 rar \
-	libreoffice r-base rename
+	libreoffice r-base rename pandoc
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
@@ -111,7 +111,7 @@ install-python3.7-from-source:
 
 .ONESHELL:
 install-r-3.5.0-from-source:
-	sudo apt-get install libcairo2-dev libxt-dev libtiff5-dev libssh2-1-dev
+	sudo apt-get install libcairo2-dev libxt-dev libtiff5-dev libssh2-1-dev libxml libxml2-dev
 	wget https://cloud.r-project.org/bin/linux/ubuntu/bionic-cran35/r-base_3.5.0.orig.tar.gz \
 	-O $(HOME)/opt/ubuntu-software/R-3.5.0.tgz
 	if [ -d $(HOME)/opt/R-3.5.0 ]; then rm -rf $(HOME)/opt/R-3.5.0; fi
@@ -122,6 +122,15 @@ install-r-3.5.0-from-source:
 	./configure --prefix=$(HOME)/opt/r-3.5.0 --enable-R-shlib --with-blas --with-lapack
 	make
 	make install
+
+install-r-packages-local:
+	~/bin/R -e "install.packages('tidyverse')"
+	~/bin/R -e "install.packages('knitr')"
+	~/bin/R -e "install.packages('rmarkdown')"
+	~/bin/R -e "source("https://bioconductor.org/biocLite.R"); \
+	biocLite(); \
+	biocLite('dada2'); \
+	biocLite('phyloseq')"
 
 #update-pip3:
 #	sudo -H python3 -c \
