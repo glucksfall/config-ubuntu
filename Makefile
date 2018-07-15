@@ -129,11 +129,14 @@ install-r-packages-local:
 	~/bin/R -e "install.packages('rmarkdown')"
 	~/bin/R -e "install.packages('gridExtra')"
 	~/bin/R -e "install.packages('plotly')"
+	~/bin/R -e "install.packages('Cairo')"
 	~/bin/R -e "source('https://bioconductor.org/biocLite.R'); \
 	biocLite(); \
 	biocLite('dada2'); \
 	biocLite('phyloseq'); \
-	biocLite('DESeq2')"
+	biocLite('DESeq2'); \
+	biocLite('microbiome'); \
+	biocLite('ggpubr')"
 
 #update-pip3:
 #	sudo -H python3 -c \
