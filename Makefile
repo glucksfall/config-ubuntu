@@ -127,10 +127,12 @@ install-r-packages-local:
 	~/bin/R -e "install.packages('tidyverse')"
 	~/bin/R -e "install.packages('knitr')"
 	~/bin/R -e "install.packages('rmarkdown')"
-	~/bin/R -e "source("https://bioconductor.org/biocLite.R"); \
+	~/bin/R -e "install.packages('gridExtra')"
+	~/bin/R -e "source('https://bioconductor.org/biocLite.R'); \
 	biocLite(); \
 	biocLite('dada2'); \
-	biocLite('phyloseq')"
+	biocLite('phyloseq'); \
+	biocLite('DESeq2')"
 
 #update-pip3:
 #	sudo -H python3 -c \
