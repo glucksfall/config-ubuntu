@@ -59,10 +59,14 @@ conf-jupyter-system:
 	# install and enable rise
 	sudo jupyter-nbextension install rise --py --sys-prefix
 	sudo jupyter-nbextension enable rise --py --sys-prefix
+	
+	# install and enable contrib_nbextensions
+	sudo jupyter-nbextension install jupyter_contrib_nbextensions --py --sys-prefix
+	sudo jupyter-nbextension enable jupyter_contrib_nbextensions --py --sys-prefix
 
-	# install and enable configurator
-	sudo jupyter-nbextension install configurator --py --sys-prefix
-	sudo jupyter-nbextension enable configurator --py --sys-prefix
+	# install and enable nbextensions_configurator
+	sudo jupyter-nbextension install jupyter_nbextensions_configurator --py --sys-prefix
+	sudo jupyter-nbextension enable jupyter_nbextensions_configurator --py --sys-prefix
 
 	# install and enable ipyparallel
 	sudo jupyter-nbextension install --sys-prefix --py ipyparallel
