@@ -45,19 +45,29 @@ install-python-packages-developing:
 
 conf-jupyter-system:
 	sudo -H python3 -c "import pip; pip.main(['install', 'jupyter', \
-	'jupyterlab', 'ipykernel', 'nbopen', 'rise', \
-	'jupyter_contrib_nbextensions'])"
+	'jupyterlab', 'jupyterhub', 'ipykernel', 'nbopen', 'rise', 'ipyparallel', \
+	'jupyter_contrib_nbextensions', 'jupyter_nbextensions_configurator'])"
 
 	sudo -H python2 -c "import pip; pip.main(['install', 'jupyter', \
-	'jupyterlab', 'ipykernel', 'nbopen', 'rise', \
-	'jupyter_contrib_nbextensions'])"
+	'jupyterlab', 'jupyterhub', 'ipykernel', 'nbopen', 'ipyparallel', \
+	'jupyter_contrib_nbextensions', 'jupyter_nbextensions_configurator'])"
 
 	python2 -m ipykernel install --user
 	python3 -m ipykernel install --user
 	python3 -m nbopen.install_xdg
 
+	# install and enable rise
 	sudo jupyter-nbextension install rise --py --sys-prefix
 	sudo jupyter-nbextension enable rise --py --sys-prefix
+
+	# install and enable configurator
+	sudo jupyter-nbextension install configurator --py --sys-prefix
+	sudo jupyter-nbextension enable configurator --py --sys-prefix
+
+	# install and enable ipyparallel
+	sudo jupyter-nbextension install --sys-prefix --py ipyparallel
+	sudo jupyter-nbextension enable --sys-prefix --py ipyparallel
+	sudo jupyter-serverextension enable --sys-prefix --py ipyparallel
 
 add-jupyter-kernels:
 	~/bin/R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'), \
