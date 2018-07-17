@@ -159,7 +159,7 @@ install-r-packages-local:
 
 .ONESHELL:
 update-python3-packages:
-	$$(which pip3) list --outdated --format=columns \
+	sudo $$(which pip3) list --outdated --format=columns \
 	| tail -n +3 | cut -d ' ' -f 1 | \
 	sudo -H xargs -n1 $$(which pip3) install --upgrade
 
@@ -169,7 +169,7 @@ update-python3-packages:
 
 .ONESHELL:
 update-python2-packages:
-	$$(which pip) list --outdated --format=columns \
+	sudo $$(which pip) list --outdated --format=columns \
 	| tail -n +3 | cut -d ' ' -f 1 | \
 	sudo -H xargs -n1 $$(which pip) install --upgrade
 
