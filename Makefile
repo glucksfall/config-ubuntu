@@ -59,7 +59,7 @@ conf-jupyter-system:
 	# install and enable rise
 	sudo jupyter-nbextension install rise --py --sys-prefix
 	sudo jupyter-nbextension enable rise --py --sys-prefix
-	
+
 	# install and enable contrib_nbextensions
 	sudo jupyter-nbextension install jupyter_contrib_nbextensions --py --sys-prefix
 	sudo jupyter-nbextension enable jupyter_contrib_nbextensions --py --sys-prefix
@@ -159,9 +159,9 @@ install-r-packages-local:
 
 .ONESHELL:
 update-python3-packages:
-	$(which pip3) list --outdated --format=columns \
+	$$(which pip3) list --outdated --format=columns \
 	| tail -n +3 | cut -d ' ' -f 1 | \
-	sudo -H xargs -n1 $(which pip3) install --upgrade
+	sudo -H xargs -n1 $$(which pip3) install --upgrade
 
 #update-pip2:
 #	sudo -H python2 -c \
@@ -169,9 +169,9 @@ update-python3-packages:
 
 .ONESHELL:
 update-python2-packages:
-	$(which pip) list --outdated --format=columns \
+	$$(which pip) list --outdated --format=columns \
 	| tail -n +3 | cut -d ' ' -f 1 | \
-	sudo -H xargs -n1 $(which pip) install --upgrade
+	sudo -H xargs -n1 $$(which pip) install --upgrade
 
 jupyter-autostart:
 	echo 'python3 -m jupyter notebook --no-browser &' >> ~/.profile
