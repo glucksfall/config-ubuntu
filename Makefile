@@ -1,3 +1,8 @@
+.ONESHELL:
+test:
+	echo $(HOME)
+	echo $$(which pip3)
+
 apt-install:
 	sudo apt-get update
 	sudo apt-get upgrade
@@ -12,7 +17,7 @@ apt-install:
 	libcanberra-gtk-module libcanberra-gtk3-module android-tools-adb \
 	android-tools-fastboot libgirepository1.0-dev virtualbox curl \
 	gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0 rar \
-	libreoffice r-base rename pandoc
+	libreoffice r-base rename pandoc aptitude
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
@@ -21,38 +26,32 @@ apt-install:
 install-python-packages-local:
 	~/bin/python3 -c "import pip; pip.main(['install', 'pandas', \
 	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
-	'biopython', 'cython', ])"
+	'biopython', '--upgrade'])"
 
 install-python-packages-system:
 	sudo -H python3 -c "import pip; pip.main(['install', 'pandas', \
 	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
-	'biopython', ])"
+	'biopython', '--upgrade'])"
 
 	sudo -H python2 -c "import pip; pip.main(['install', 'pandas', \
 	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
-	'biopython', ])"
+	'biopython', '--upgrade'])"
 
-	# cython makes jupyter crush, weave (?)
+	# cython makes jupyter to crush; also weave (?)
 
 install-python-packages-developing:
 	sudo -H python3 -c "import pip; pip.main(['install', 'testresources', \
 	'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme', \
-	'versioneer', 'pylint', ])"
+	'versioneer', 'pylint', 'autopep8', '--upgrade'])"
 
 	sudo -H python2 -c "import pip; pip.main(['install', 'testresources', \
 	'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme', \
-	'versioneer', 'pylint', ])"
+	'versioneer', 'pylint', 'autopep8', '--upgrade'])"
 
 conf-jupyter-system:
 	sudo -H python3 -c "import pip; pip.main(['install', 'jupyter', \
-	'jupyterlab', 'jupyterhub', 'ipykernel', 'nbopen', 'rise', 'ipyparallel', \
-	'jupyter_contrib_nbextensions', 'jupyter_nbextensions_configurator'])"
+	'jupyterlab', 'ipykernel', 'nbopen', 'rise', '--upgrade'])"
 
-	sudo -H python2 -c "import pip; pip.main(['install', 'jupyter', \
-	'jupyterlab', 'jupyterhub', 'ipykernel', 'nbopen', 'ipyparallel', \
-	'jupyter_contrib_nbextensions', 'jupyter_nbextensions_configurator'])"
-
-	python2 -m ipykernel install --user
 	python3 -m ipykernel install --user
 	python3 -m nbopen.install_xdg
 
@@ -60,18 +59,18 @@ conf-jupyter-system:
 	sudo jupyter-nbextension install rise --py --sys-prefix
 	sudo jupyter-nbextension enable rise --py --sys-prefix
 
-	# install and enable contrib_nbextensions
-	sudo jupyter-nbextension install jupyter_contrib_nbextensions --py --sys-prefix
-	sudo jupyter-nbextension enable jupyter_contrib_nbextensions --py --sys-prefix
-
-	# install and enable nbextensions_configurator
-	sudo jupyter-nbextension install jupyter_nbextensions_configurator --py --sys-prefix
-	sudo jupyter-nbextension enable jupyter_nbextensions_configurator --py --sys-prefix
-
-	# install and enable ipyparallel
-	sudo jupyter-nbextension install --sys-prefix --py ipyparallel
-	sudo jupyter-nbextension enable --sys-prefix --py ipyparallel
-	sudo jupyter-serverextension enable --sys-prefix --py ipyparallel
+# 	# install and enable contrib_nbextensions
+# 	sudo jupyter-nbextension install jupyter_contrib_nbextensions --py --sys-prefix
+# 	sudo jupyter-nbextension enable jupyter_contrib_nbextensions --py --sys-prefix
+#
+# 	# install and enable nbextensions_configurator
+# 	sudo jupyter-nbextension install jupyter_nbextensions_configurator --py --sys-prefix
+# 	sudo jupyter-nbextension enable jupyter_nbextensions_configurator --py --sys-prefix
+#
+# 	# install and enable ipyparallel
+# 	sudo jupyter-nbextension install --sys-prefix --py ipyparallel
+# 	sudo jupyter-nbextension enable --sys-prefix --py ipyparallel
+# 	sudo jupyter-serverextension enable --sys-prefix --py ipyparallel
 
 add-jupyter-kernels:
 	~/bin/R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'), \
@@ -89,11 +88,11 @@ add-jupyter-kernels:
 	IRkernel::installspec(name = 'ir')"
 
 .ONESHELL:
-install-python3.6-from-source:
+compile-python3.6.5:
+	sudo apt-get install build-essential checkinstall
 	sudo apt-get install libssl-dev zlib1g-dev libncurses5-dev \
 	libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev \
-	libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev \
-	libcurl4-openssl-dev libzmq3-dev libssl-dev
+	libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev
 
 	wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz \
 	-O $(HOME)/opt/ubuntu-software/Python-3.6.5.tgz
@@ -107,7 +106,8 @@ install-python3.6-from-source:
 	make install
 
 .ONESHELL:
-install-python3.7-from-source:
+compile-python3.7.0:
+	sudo apt-get install build-essential checkinstall
 	sudo apt-get install libssl-dev zlib1g-dev libncurses5-dev \
 	libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev \
 	libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev uuid-dev
@@ -124,8 +124,9 @@ install-python3.7-from-source:
 	make install
 
 .ONESHELL:
-install-r-3.5.0-from-source:
+compile-r-3.5.0:
 	sudo apt-get install libcairo2-dev libxt-dev libtiff5-dev libssh2-1-dev libxml libxml2-dev
+
 	wget https://cloud.r-project.org/bin/linux/ubuntu/bionic-cran35/r-base_3.5.0.orig.tar.gz \
 	-O $(HOME)/opt/ubuntu-software/R-3.5.0.tgz
 	if [ -d $(HOME)/opt/R-3.5.0 ]; then rm -rf $(HOME)/opt/R-3.5.0; fi
@@ -145,6 +146,7 @@ install-r-packages-local:
 	~/bin/R -e "install.packages('plotly', dependencies = TRUE)"
 	~/bin/R -e "install.packages('Cairo', dependencies = TRUE)"
 	~/bin/R -e "install.packages('ggpubr', dependencies = TRUE)"
+
 	# install bioConductor packages
 	~/bin/R -e "source('https://bioconductor.org/biocLite.R'); \
 	biocLite(); \
@@ -157,24 +159,21 @@ install-r-packages-local:
 #	sudo -H python3 -c \
 #	"import pip; pip.main(['install', '--upgrade', 'pip'])"
 
-.ONESHELL:
-update-python3-packages:
-	sudo $$(which pip3) list --outdated --format=columns \
-	| tail -n +3 | cut -d ' ' -f 1 | \
-	sudo -H xargs -n1 $$(which pip3) install --upgrade
+# .ONESHELL:
+# update-python3-packages:
+# 	sudo $$(which pip3) list --outdated --format=columns \
+# 	| tail -n +3 | cut -d ' ' -f 1 | \
+# 	sudo -H xargs -n1 $$(which pip3) install --upgrade
 
 #update-pip2:
 #	sudo -H python2 -c \
 #	"import pip; pip.main(['install', '--upgrade', 'pip'])"
 
-.ONESHELL:
-update-python2-packages:
-	sudo $$(which pip) list --outdated --format=columns \
-	| tail -n +3 | cut -d ' ' -f 1 | \
-	sudo -H xargs -n1 $$(which pip) install --upgrade
-
-jupyter-autostart:
-	echo 'python3 -m jupyter notebook --no-browser &' >> ~/.profile
+# .ONESHELL:
+# update-python2-packages:
+# 	sudo $$(which pip) list --outdated --format=columns \
+# 	| tail -n +3 | cut -d ' ' -f 1 | \
+# 	sudo -H xargs -n1 $$(which pip) install --upgrade
 
 git-clone:
 	sudo chown -R glucksfall:glucksfall /opt
@@ -314,27 +313,12 @@ gcp-uninstall:
 install-others:
 	cd /opt/ubuntu-software/
 
-	if [[ ! -d /opt/Gitter ]]; then \
-	sudo dpkg -i gitter_3.1.0_amd64.deb; \
-	fi
-
-	if [[ ! -d /opt/google/chrome ]]; then \
-	sudo dpkg -i google-chrome-stable_current_amd64.deb; \
-	fi
-
-	if [[ ! -d /opt/mendeleydesktop ]]; then \
-	sudo dpkg -i mendeleydesktop_1.17.13-stable_amd64.deb; \
-	fi
-
+	sudo dpkg -i gitter_3.1.0_amd64.deb
+	sudo dpkg -i google-chrome-stable_current_amd64.deb
+	sudo dpkg -i mendeleydesktop_1.17.13-stable_amd64.deb
 	sudo dpkg -i prey_1.6.5_amd64.deb
-
-	if [[ ! -d /opt/gslbiotech/snapgene-viewer ]]; then \
-	sudo dpkg -i snapgene_viewer_4.1.9_linux.deb; \
-	fi
-
-	if [[ ! -d /opt/whatsie ]]; then \
-	sudo dpkg -i whatsie-2.1.0-linux-amd64.deb; \
-	fi
+	sudo dpkg -i snapgene_viewer_4.1.9_linux.deb
+	sudo dpkg -i whatsie-2.1.0-linux-amd64.deb
 
 	sudo chown -R glucksfall:glucksfall /opt
 
@@ -348,6 +332,13 @@ install-others:
 	tar xvzf gurobi7.5.2_linux64.tar.gz -C /opt
 	tar xvzf COPASI-4.23.184-Linux-64bit.tar.gz -C /opt
 
+.ONESHELL:
+install-matlab:
+	cd /opt/ubuntu-software/
+
 	if [[ ! -d /opt/matlab_R2017b_glnxa64 ]]; \
 	then unzip matlab_R2017b_glnxa64.zip -d /opt/matlab_R2017b_glnxa64; \
 	fi
+
+	cd /opt/matlab_R2017b_glnxa64
+	install
