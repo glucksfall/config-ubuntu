@@ -17,7 +17,7 @@ apt-install:
 	libcanberra-gtk-module libcanberra-gtk3-module android-tools-adb \
 	android-tools-fastboot libgirepository1.0-dev virtualbox curl \
 	gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0 rar \
-	libreoffice r-base rename pandoc aptitude
+	libreoffice r-base rename pandoc aptitude python-h5py python3-h5py
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
@@ -35,7 +35,7 @@ install-python-packages-system:
 
 	sudo -H python2 -c "import pip; pip.main(['install', 'pandas', \
 	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
-	'biopython', '--upgrade'])"
+	'biopython', 'qiime', '--upgrade'])"
 
 	# cython makes jupyter to crush; also weave (?)
 
