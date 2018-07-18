@@ -146,6 +146,12 @@ install-r-packages-local:
 	~/bin/R -e "install.packages('plotly', dependencies = TRUE)"
 	~/bin/R -e "install.packages('Cairo', dependencies = TRUE)"
 	~/bin/R -e "install.packages('ggpubr', dependencies = TRUE)"
+	~/bin/R -e "install.packages('ape', dependencies = TRUE)"
+	~/bin/R -e "install.packages('biom', dependencies = TRUE)"
+	~/bin/R -e "install.packages('optparse', dependencies = TRUE)"
+	~/bin/R -e "install.packages('RColorBrewer', dependencies = TRUE)"
+	~/bin/R -e "install.packages('randomForest', dependencies = TRUE)"
+	~/bin/R -e "install.packages('vegan', dependencies = TRUE)"
 
 	# install bioConductor packages
 	~/bin/R -e "source('https://bioconductor.org/biocLite.R'); \
@@ -153,7 +159,8 @@ install-r-packages-local:
 	biocLite('dada2'); \
 	biocLite('phyloseq'); \
 	biocLite('DESeq2'); \
-	biocLite('microbiome')"
+	biocLite('microbiome'); \
+	biocLite('metagenomeSeq')"
 
 #update-pip3:
 #	sudo -H python3 -c \
