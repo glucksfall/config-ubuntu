@@ -24,18 +24,18 @@ apt-install:
 	sudo apt-get clean
 
 install-python-packages-local:
-	~/bin/python3 -c "import pip; pip.main(['install', 'pandas', \
-	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
-	'biopython', '--upgrade'])"
+	~/bin/local-pip3 install numpy pandas \
+	cobra escher seaborn pillow bokeh dnaplotlib pysb \
+	biopython --upgrade
 
 install-python-packages-system:
 	sudo -H pip3 install numpy pandas \
 	cobra escher seaborn pillow bokeh dnaplotlib pysb \
 	biopython --upgrade
 
-	sudo -H python2 -c "import pip; pip.main(['install', 'pandas', \
-	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
-	'biopython', 'qiime', '--upgrade'])"
+	sudo -H pip2 install numpy pandas \
+	cobra escher seaborn pillow bokeh dnaplotlib pysb \
+	biopython qiime --upgrade
 
 	# cython makes jupyter to crush; also weave (?)
 
@@ -44,9 +44,9 @@ install-python-packages-developing:
 	twine sphinx sphinx-autobuild sphinx_rtd_theme \
 	versioneer pylint autopep8 --upgrade
 
-	sudo -H python2 -c "import pip; pip.main(['install', 'testresources', \
-	'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme', \
-	'versioneer', 'pylint', 'autopep8', '--upgrade'])"
+	sudo -H pip2 install testresources \
+	twine sphinx sphinx-autobuild sphinx_rtd_theme \
+	versioneer pylint autopep8 --upgrade
 
 conf-jupyter-system:
 	sudo -H pip3 install jupyter jupyterlab ipykernel nbopen rise --upgrade
@@ -72,68 +72,70 @@ conf-jupyter-system:
 # 	sudo jupyter-serverextension enable --sys-prefix --py ipyparallel
 
 add-jupyter-kernels:
+	# compiled R from CRAN
 	~/bin/R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'), \
 	repos = 'https://cloud.r-project.org/'); \
 	library(devtools); \
-	devtools::install('/opt/git-irkernel-irkernel-master/R'); \
+	devtools::install('/opt/github-repositories/irkernel-irkernel/R'); \
 	library(IRkernel); \
 	IRkernel::installspec(name = 'cran')"
 
+	# R from Canonical repository
 	sudo R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'), \
 	repos = 'https://cloud.r-project.org/'); \
 	library(devtools); \
-	devtools::install('/opt/git-irkernel-irkernel-master/R'); \
+	devtools::install('/opt/github-repositories/irkernel-irkernel/R'); \
 	library(IRkernel); \
 	IRkernel::installspec(name = 'ir')"
 
 .ONESHELL:
-compile-python3.6.5:
+python3.6.5:
 	sudo apt-get install build-essential checkinstall
 	sudo apt-get install libssl-dev zlib1g-dev libncurses5-dev \
 	libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev \
 	libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev
 
 	wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz \
-	-O $(HOME)/opt/ubuntu-software/Python-3.6.5.tgz
-	if [ -d $(HOME)/opt/Python-3.6.5 ]; then rm -rf $(HOME)/opt/Python-3.6.5; fi
-	tar xvzf $(HOME)/opt/ubuntu-software/Python-3.6.5.tgz -C ~/opt
-	cd $(HOME)/opt/Python-3.6.5
+	-O $(HOME)/opt/github-repositories/ubuntu-software/Python-3.6.5.tgz
+	if [ -d $(HOME)/opt/github-repositories/Python-3.6.5 ]; then rm -rf $(HOME)/opt/github-repositories/Python-3.6.5; fi
+	tar xvzf $(HOME)/opt/github-repositories/ubuntu-software/Python-3.6.5.tgz -C ~/opt/github-repositories
+	cd $(HOME)/opt/github-repositories/Python-3.6.5
 	if [ -f Makefile ]; then make clean; fi
-	if [ -d $(HOME)/opt/python-3.6.5 ]; then rm -rf $(HOME)/opt/python-3.6.5; fi
-	./configure --prefix=$(HOME)/opt/python-3.6.5 --enable-optimizations
+	if [ -d $(HOME)/opt/github-repositories/python-3.6.5 ]; then rm -rf $(HOME)/opt/github-repositories/python-3.6.5; fi
+	./configure --prefix=$(HOME)/opt/github-repositories/python-3.6.5 --enable-opt/github-repositoriesimizations
 	make
 	make install
 
 .ONESHELL:
-compile-python3.7.0:
+python3.7.0:
 	sudo apt-get install build-essential checkinstall
 	sudo apt-get install libssl-dev zlib1g-dev libncurses5-dev \
 	libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev \
 	libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev uuid-dev
 
 	wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz \
-	-O $(HOME)/opt/ubuntu-software/Python-3.7.0.tgz
-	if [ -d $(HOME)/opt/Python-3.7.0 ]; then rm -rf $(HOME)/opt/Python-3.7.0; fi
-	tar xvzf $(HOME)/opt/ubuntu-software/Python-3.7.0.tgz -C ~/opt
-	cd $(HOME)/opt/Python-3.7.0
+	-O $(HOME)/opt/github-repositories/ubuntu-software/Python-3.7.0.tgz
+	if [ -d $(HOME)/opt/github-repositories/Python-3.7.0 ]; then rm -rf $(HOME)/opt/github-repositories/Python-3.7.0; fi
+	tar xvzf $(HOME)/opt/github-repositories/ubuntu-software/Python-3.7.0.tgz -C ~/opt/github-repositories
+	cd $(HOME)/opt/github-repositories/Python-3.7.0
 	if [ -f Makefile ]; then make clean; fi
-	if [ -d $(HOME)/opt/python-3.7.0 ]; then rm -rf $(HOME)/opt/python-3.7.0; fi
-	./configure --prefix=$(HOME)/opt/python-3.7.0 --enable-optimizations
+	if [ -d $(HOME)/opt/github-repositories/python-3.7.0 ]; then rm -rf $(HOME)/opt/github-repositories/python-3.7.0; fi
+	./configure --prefix=$(HOME)/opt/github-repositories/python-3.7.0 --enable-opt/github-repositoriesimizations
 	make
 	make install
 
 .ONESHELL:
-compile-r-3.5.0:
+r3.5.0:
 	sudo apt-get install libcairo2-dev libxt-dev libtiff5-dev libssh2-1-dev libxml libxml2-dev
 
 	wget https://cloud.r-project.org/bin/linux/ubuntu/bionic-cran35/r-base_3.5.0.orig.tar.gz \
-	-O $(HOME)/opt/ubuntu-software/R-3.5.0.tgz
-	if [ -d $(HOME)/opt/R-3.5.0 ]; then rm -rf $(HOME)/opt/R-3.5.0; fi
-	tar xvzf $(HOME)/opt/ubuntu-software/R-3.5.0.tgz -C $(HOME)/opt
-	cd $(HOME)/opt/R-3.5.0
+	-O $(HOME)/opt/github-repositories/ubuntu-software/R-3.5.0.tgz
+	if [ -d $(HOME)/opt/github-repositories/R-3.5.0 ]; then rm -rf $(HOME)/opt/github-repositories/R-3.5.0; fi
+	tar xvzf $(HOME)/opt/github-repositories/ubuntu-software/R-3.5.0.tgz -C $(HOME)/opt/github-repositories
+	cd $(HOME)/opt/github-repositories/R-3.5.0
 	if [ -f Makefile ]; then make clean; fi
-	if [ -d $(HOME)/opt/r-3.5.0 ]; then rm -rf $(HOME)/opt/r-3.5.0; fi
-	./configure --prefix=$(HOME)/opt/r-3.5.0 --enable-R-shlib --with-blas --with-lapack
+	if [ -d $(HOME)/opt/github-repositories/r-3.5.0 ]; then rm -rf $(HOME)/opt/github-repositories/r-3.5.0; fi
+	./configure --prefix=$(HOME)/opt/github-repositories/r-3.5.0 --enable-R-shlib --with-blas --with-lapack
 	make
 	make install
 
@@ -147,7 +149,7 @@ install-r-packages-local:
 	~/bin/R -e "install.packages('ggpubr', dependencies = TRUE)"
 	~/bin/R -e "install.packages('ape', dependencies = TRUE)"
 	~/bin/R -e "install.packages('biom', dependencies = TRUE)"
-	~/bin/R -e "install.packages('optparse', dependencies = TRUE)"
+	~/bin/R -e "install.packages('opt/github-repositoriesparse', dependencies = TRUE)"
 	~/bin/R -e "install.packages('RColorBrewer', dependencies = TRUE)"
 	~/bin/R -e "install.packages('randomForest', dependencies = TRUE)"
 	~/bin/R -e "install.packages('vegan', dependencies = TRUE)"
@@ -161,19 +163,11 @@ install-r-packages-local:
 	biocLite('microbiome'); \
 	biocLite('metagenomeSeq')"
 
-#update-pip3:
-#	sudo -H python3 -c \
-#	"import pip; pip.main(['install', '--upgrade', 'pip'])"
-
 # .ONESHELL:
 # update-python3-packages:
 # 	sudo $$(which pip3) list --outdated --format=columns \
 # 	| tail -n +3 | cut -d ' ' -f 1 | \
 # 	sudo -H xargs -n1 $$(which pip3) install --upgrade
-
-#update-pip2:
-#	sudo -H python2 -c \
-#	"import pip; pip.main(['install', '--upgrade', 'pip'])"
 
 # .ONESHELL:
 # update-python2-packages:
@@ -181,89 +175,90 @@ install-r-packages-local:
 # 	| tail -n +3 | cut -d ' ' -f 1 | \
 # 	sudo -H xargs -n1 $$(which pip) install --upgrade
 
-git-clone:
+clone-github-repositories:
 	sudo chown -R glucksfall:glucksfall /opt
-
+	
+	# clone
 	git clone https://github.com/20n/act.git \
-	/opt/git-20n-act-master
+	/opt/github-repositories/20n.act
 
 	git clone https://github.com/3DGenomes/TADbit.git \
-	/opt/git-3dgenomes-tadbit-master
+	/opt/github-repositories/3DGenomes.TADbit
 
 	git clone https://github.com/bmbolstad/RMAExpress.git \
-	/opt/git-bmbolstad-rmaexpress-110 --branch RMAExpress_1_1_0
+	/opt/github-repositories/bmbolstad.RMAExpress_1_1_0 --branch RMAExpress_1_1_0
 
 	git clone https://github.com/bmbolstad/RMAExpress.git \
-	/opt/git-bmbolstad-rmaexpress-master
+	/opt/github-repositories/bmbolstad.RMAExpress
 
 	git clone https://github.com/borenstein-lab/CoMiDA.git \
-	/opt/git-borenstein-lab-comida-master
+	/opt/github-repositories/borenstein-lab.CoMiDA
 
 	git clone https://github.com/CovertLab/WholeCellViz.git \
-	/opt/git-covertlab-wholecellviz-master
+	/opt/github-repositories/CovertLab.WholeCellViz
 
 	git clone https://github.com/cryptoluka/CryptoLuKa.git \
-	/opt/git-cryptoluka-cryptoluka-master
+	/opt/github-repositories/cryptoluka.CryptoLuKa
 
 	git clone https://github.com/DLab/PISKaS.git \
-	/opt/git-dlab-piskas-master
+	/opt/github-repositories/DLab.PISKaS
 
 	git clone https://github.com/ethereum/go-ethereum.git \
-	/opt/git-ethereum-goethereum-master
+	/opt/github-repositories/ethereum.go-ethereum
 
 	git clone https://github.com/google/skicka.git \
-	/opt/git-google-skicka-master
+	/opt/github-repositories/google.skicka
 
 	git clone https://github.com/hyattpd/Prodigal.git \
-	/opt/git-hyattpd-prodigal-master
+	/opt/github-repositories/hyattpd.Prodigal
 
 	git clone https://github.com/jhcepas/eggnog-mapper.git \
-	/opt/git-jhcepas-eggnog-mapper-master
+	/opt/github-repositories/jhcepas.eggnog-mapper
 
 	git clone https://github.com/JuliaLang/IJulia.jl.git \
-	/opt/git-julialang-ijulia.jl-master
+	/opt/github-repositories/JuliaLang.IJulia
 
 	git clone https://github.com/Kappa-Dev/KaSim.git \
-	/opt/git-kappa.dev-kasim-kasim3 --branch KaSim3
+	/opt/github-repositories/Kappa-Dev.KaSim3 --branch KaSim3
 
 	git clone https://github.com/Kappa-Dev/KaSim.git \
-	/opt/git-kappa.dev-kasim-kasim4 --branch KaSim4
+	/opt/github-repositories/Kappa-Dev.KaSim4 --branch KaSim4
 
 	git clone https://github.com/Kappa-Dev/KaSim.git \
-	/opt/git-kappa.dev-kasim-master
+	/opt/github-repositories/Kappa-Dev.KaSim
 
 	git clone https://github.com/naxo100/PISKa.git \
-	/opt/git-naxo100-piska-master
+	/opt/github-repositories/naxo100.PISKa
 
 	git clone https://github.com/opencobra/cobratoolbox.git \
-	/opt/git-opencobra-cobratoolbox-master
+	/opt/github-repositories/opencobra.cobratoolbox
 
 	git clone https://github.com/PosnerLab/BioNetFit.git \
-	/opt/git-posnerlab-bionetfit-master
+	/opt/github-repositories/PosnerLab.BioNetFit
 
 	git clone https://github.com/RuleWorld/BioNetFit.git \
-	/opt/git-ruleworld-bionetfit-master
+	/opt/github-repositories/RuleWorld.BioNetFit
 
 	git clone https://github.com/RuleWorld/bionetgen.git \
-	/opt/git-ruleworld-bionetgen-master
+	/opt/github-repositories/RuleWorld.bionetgen
 
 	git clone https://github.com/RuleWorld/rulebender.git \
-	/opt/git-ruleworld-rulebender-master
+	/opt/github-repositories/RuleWorld.rulebender
 
 	git clone https://github.com/salilab/imp.git \
-	/opt/git-salilab-imp-master
+	/opt/github-repositories/salilab.imp
 
 	git clone https://github.com/sbmlteam/SBMLToolbox.git \
-	/opt/git-sbmlteam-sbmltoolbox-master
+	/opt/github-repositories/sbmlteam.SBMLToolbox
 
 	git clone https://github.com/SchedMD/slurm.git \
-	/opt/git-schedmd-slurm-master
+	/opt/github-repositories/SchedMD.slurm
 
 	git clone https://github.com/StochSS/StochKit.git \
-	/opt/git-stochss-stochkit-master
+	/opt/github-repositories/StochSS.StochKit
 
 	git clone https://github.com/SysBioChalmers/RAVEN.git \
-	/opt/git-sysbiochalmers-raven-master
+	/opt/github-repositories/SysBioChalmers.RAVEN
 
 slurm-conf:
 	sudo apt-get -y install slurm-wlm
@@ -286,34 +281,6 @@ slurm-conf:
 # 	grant all privileges on slurm_acct_db.* to 'slurm'@'localhost';
 # 	flush privileges;
 # 	exit
-
-gcp-conf:
-	export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
-
-	echo "deb https://packages.cloud.google.com/apt \
-	$CLOUD_SDK_REPO main" | sudo tee -a \
-	/etc/apt/sources.list.d/google-cloud-sdk.list
-
-	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
-	| sudo apt-key add -
-
-	sudo apt-get update
-	sudo apt-get install google-cloud-sdk \
-	google-cloud-sdk-app-engine-python \
-	google-cloud-sdk-app-engine-python-extras \
-	google-cloud-sdk-app-engine-java \
-	google-cloud-sdk-app-engine-go \
-	google-cloud-sdk-datalab \
-	google-cloud-sdk-datastore-emulator \
-	google-cloud-sdk-pubsub-emulator \
-	google-cloud-sdk-cbt google-cloud-sdk-bigtable-emulator \
-	kubectl
-
-.ONESHELL:
-gcp-uninstall:
-	#gcloud info --format='value(installation.sdk_root)'
-	sudo rm -r $(gcloud info --format='value(installation.sdk_root)')
-	rm -r $(gcloud info --format='value(config.paths.global_config_dir)')
 
 .ONESHELL:
 install-others:
