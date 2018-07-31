@@ -29,9 +29,9 @@ install-python-packages-local:
 	'biopython', '--upgrade'])"
 
 install-python-packages-system:
-	sudo -H python3 -c "import pip; pip.main(['install', 'pandas', \
-	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
-	'biopython', '--upgrade'])"
+	sudo -H pip3 install numpy pandas \
+	cobra escher seaborn pillow bokeh dnaplotlib pysb \
+	biopython --upgrade
 
 	sudo -H python2 -c "import pip; pip.main(['install', 'pandas', \
 	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
@@ -40,17 +40,16 @@ install-python-packages-system:
 	# cython makes jupyter to crush; also weave (?)
 
 install-python-packages-developing:
-	sudo -H python3 -c "import pip; pip.main(['install', 'testresources', \
-	'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme', \
-	'versioneer', 'pylint', 'autopep8', '--upgrade'])"
+	sudo -H pip3 install testresources \
+	twine sphinx sphinx-autobuild sphinx_rtd_theme \
+	versioneer pylint autopep8 --upgrade
 
 	sudo -H python2 -c "import pip; pip.main(['install', 'testresources', \
 	'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme', \
 	'versioneer', 'pylint', 'autopep8', '--upgrade'])"
 
 conf-jupyter-system:
-	sudo -H python3 -c "import pip; pip.main(['install', 'jupyter', \
-	'jupyterlab', 'ipykernel', 'nbopen', 'rise', '--upgrade'])"
+	sudo -H pip3 install jupyter jupyterlab ipykernel nbopen rise --upgrade
 
 	python3 -m ipykernel install --user
 	python3 -m nbopen.install_xdg
