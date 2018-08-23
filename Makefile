@@ -3,25 +3,21 @@ test:
 	echo $(HOME)
 	echo $$(which pip3)
 
+.ONESHELL:
 apt-install:
 	sudo apt-get update
 	sudo apt-get upgrade
 	sudo apt-get dist-upgrade
 	sudo apt-get remove xul-ext-ubufox gedit
 
-	sudo apt-get -y install gnome-tweak-tool gnome-themes-standard \
-	python-pip python3-pip htop kate kompare chrome-gnome-shell opam \
-	openjdk-8-jre lm-sensors synaptic gparted gimp inkscape \
-	nautilus-dropbox vlc texstudio texlive-full apt-file python3-tk \
-	python-tk autoconf libtool cmake net-tools sshfs libopenmpi-dev npm \
-	libcanberra-gtk-module libcanberra-gtk3-module android-tools-adb \
-	android-tools-fastboot libgirepository1.0-dev virtualbox curl \
-	gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0 rar \
-	libreoffice r-base rename pandoc aptitude python-h5py python3-h5py
+	for i in gnome-tweak-tool gnome-themes-standard htop kate kompare chrome-gnome-shell opam openjdk-8-jre lm-sensors synaptic gparted gimp inkscape nautilus-dropbox vlc apt-file autoconf libtool cmake net-tools sshfs libopenmpi-dev npm libcanberra-gtk-module libcanberra-gtk3-module android-tools-adb android-tools-fastboot libgirepository1.0-dev virtualbox curl gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0 rar libreoffice r-base rename pandoc aptitude; do sudo apt-get -y install $$i; done
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
 	sudo apt-get clean
+
+latex-install:
+	sudo apt-get install texstudio texlive-full
 
 install-python-packages-local:
 	~/bin/local-pip3 install numpy pandas \
@@ -29,10 +25,12 @@ install-python-packages-local:
 	biopython --upgrade
 
 install-python-packages-system:
+	sudo apt-get -y install python3-pip python3-tk python3-h5py
 	sudo -H pip3 install numpy pandas \
 	cobra escher seaborn pillow bokeh dnaplotlib pysb \
 	biopython --upgrade
 
+	sudo apt-get -y install python-pip python-tk python-h5py
 	sudo -H pip2 install numpy pandas \
 	cobra escher seaborn pillow bokeh dnaplotlib pysb \
 	biopython qiime --upgrade
