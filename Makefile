@@ -10,7 +10,15 @@ apt-install:
 	sudo apt-get dist-upgrade
 	sudo apt-get remove xul-ext-ubufox gedit
 
-	for i in gnome-tweak-tool gnome-themes-standard htop kate kompare chrome-gnome-shell opam openjdk-8-jre lm-sensors synaptic gparted gimp inkscape nautilus-dropbox vlc apt-file autoconf libtool cmake net-tools sshfs libopenmpi-dev npm libcanberra-gtk-module libcanberra-gtk3-module android-tools-adb android-tools-fastboot libgirepository1.0-dev virtualbox curl gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0 rar libreoffice r-base rename pandoc aptitude; do sudo apt-get -y install $$i; done
+	for apt in \
+	gnome-tweak-tool gnome-themes-standard htop kate kompare \
+	chrome-gnome-shell opam openjdk-8-jre lm-sensors synaptic gparted gimp \
+	inkscape nautilus-dropbox vlc apt-file autoconf libtool cmake net-tools \
+	sshfs libopenmpi-dev npm libcanberra-gtk-module libcanberra-gtk3-module \
+	android-tools-adb android-tools-fastboot libgirepository1.0-dev \
+	virtualbox curl gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 \
+	gir1.2-clutter-1.0 rar libreoffice r-base rename pandoc aptitude; \
+	do sudo apt-get -y install $$i; done
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
