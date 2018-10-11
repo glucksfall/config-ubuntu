@@ -18,21 +18,21 @@ apt-install:
 	android-tools-adb android-tools-fastboot libgirepository1.0-dev \
 	virtualbox curl gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 \
 	gir1.2-clutter-1.0 rar libreoffice r-base rename pandoc aptitude; \
-	do sudo apt-get -y install $$i; done
+	do sudo apt-get -y install $$apt; done
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
 	sudo apt-get clean
 
 latex-install:
-	sudo apt-get install texstudio texlive-full
+	sudo apt-get -y install texstudio texlive-full
 
-install-python-packages-local:
-	~/bin/local-pip3 install numpy pandas \
-	cobra escher seaborn pillow bokeh dnaplotlib pysb \
-	biopython --upgrade
+local-python-packages-install:
+	~/bin/python3 -c "import pip; pip.main(['install', 'pandas', \
+	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
+	'biopython', '--upgrade'])"
 
-install-python-packages-system:
+system-python-packages-install:
 	sudo apt-get -y install python3-pip python3-tk python3-h5py
 	sudo -H pip3 install numpy pandas \
 	cobra escher seaborn pillow bokeh dnaplotlib pysb \
@@ -45,17 +45,18 @@ install-python-packages-system:
 
 	# cython makes jupyter to crush; also weave (?)
 
-install-python-packages-developing:
-	sudo -H pip3 install testresources \
-	twine sphinx sphinx-autobuild sphinx_rtd_theme \
-	versioneer pylint autopep8 --upgrade
+devtools-python-packages-install:
+	sudo -H python3 -c "import pip; pip.main(['install', 'testresources', \
+	'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme', \
+	'versioneer', 'pylint', 'autopep8', '--upgrade'])"
 
-	sudo -H pip2 install testresources \
-	twine sphinx sphinx-autobuild sphinx_rtd_theme \
-	versioneer pylint autopep8 --upgrade
+	sudo -H python2 -c "import pip; pip.main(['install', 'testresources', \
+	'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme', \
+	'versioneer', 'pylint', 'autopep8', '--upgrade'])"
 
-conf-jupyter-system:
-	sudo -H pip3 install jupyter jupyterlab ipykernel nbopen rise --upgrade
+jupyter-install:
+	sudo -H python3 -c "import pip; pip.main(['install', 'jupyter', \
+	'jupyterlab', 'ipykernel', 'nbopen', 'rise', '--upgrade'])"
 
 	python3 -m ipykernel install --user
 	python3 -m nbopen.install_xdg
@@ -77,75 +78,73 @@ conf-jupyter-system:
 # 	sudo jupyter-nbextension enable --sys-prefix --py ipyparallel
 # 	sudo jupyter-serverextension enable --sys-prefix --py ipyparallel
 
-add-jupyter-kernels:
-	# compiled R from CRAN
+jupyter-kernels:
 	~/bin/R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'), \
 	repos = 'https://cloud.r-project.org/'); \
 	library(devtools); \
-	devtools::install('/opt/github-repositories/irkernel-irkernel/R'); \
+	devtools::install('/opt/git-irkernel-irkernel-master/R'); \
 	library(IRkernel); \
 	IRkernel::installspec(name = 'cran')"
 
-	# R from Canonical repository
 	sudo R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'), \
 	repos = 'https://cloud.r-project.org/'); \
 	library(devtools); \
-	devtools::install('/opt/github-repositories/irkernel-irkernel/R'); \
+	devtools::install('/opt/git-irkernel-irkernel-master/R'); \
 	library(IRkernel); \
 	IRkernel::installspec(name = 'ir')"
 
 .ONESHELL:
-python3.6.5:
+python3.6.5-compile:
 	sudo apt-get install build-essential checkinstall
 	sudo apt-get install libssl-dev zlib1g-dev libncurses5-dev \
 	libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev \
 	libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev
 
 	wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz \
-	-O $(HOME)/opt/github-repositories/ubuntu-software/Python-3.6.5.tgz
-	if [ -d $(HOME)/opt/github-repositories/Python-3.6.5 ]; then rm -rf $(HOME)/opt/github-repositories/Python-3.6.5; fi
-	tar xvzf $(HOME)/opt/github-repositories/ubuntu-software/Python-3.6.5.tgz -C ~/opt/github-repositories
-	cd $(HOME)/opt/github-repositories/Python-3.6.5
+	-O $(HOME)/opt/ubuntu-software/Python-3.6.5.tgz
+	if [ -d $(HOME)/opt/Python-3.6.5 ]; then rm -rf $(HOME)/opt/Python-3.6.5; fi
+	tar xvzf $(HOME)/opt/ubuntu-software/Python-3.6.5.tgz -C ~/opt
+	cd $(HOME)/opt/Python-3.6.5
 	if [ -f Makefile ]; then make clean; fi
-	if [ -d $(HOME)/opt/github-repositories/python-3.6.5 ]; then rm -rf $(HOME)/opt/github-repositories/python-3.6.5; fi
-	./configure --prefix=$(HOME)/opt/github-repositories/python-3.6.5 --enable-opt/github-repositoriesimizations
+	if [ -d $(HOME)/opt/python-3.6.5 ]; then rm -rf $(HOME)/opt/python-3.6.5; fi
+	./configure --prefix=$(HOME)/opt/python-3.6.5 --enable-optimizations
 	make
 	make install
 
 .ONESHELL:
-python3.7.0:
+python3.7.0-compile:
 	sudo apt-get install build-essential checkinstall
 	sudo apt-get install libssl-dev zlib1g-dev libncurses5-dev \
 	libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev \
 	libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev uuid-dev
 
 	wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz \
-	-O $(HOME)/opt/github-repositories/ubuntu-software/Python-3.7.0.tgz
-	if [ -d $(HOME)/opt/github-repositories/Python-3.7.0 ]; then rm -rf $(HOME)/opt/github-repositories/Python-3.7.0; fi
-	tar xvzf $(HOME)/opt/github-repositories/ubuntu-software/Python-3.7.0.tgz -C ~/opt/github-repositories
-	cd $(HOME)/opt/github-repositories/Python-3.7.0
+	-O $(HOME)/opt/ubuntu-software/Python-3.7.0.tgz
+	if [ -d $(HOME)/opt/Python-3.7.0 ]; then rm -rf $(HOME)/opt/Python-3.7.0; fi
+	tar xvzf $(HOME)/opt/ubuntu-software/Python-3.7.0.tgz -C ~/opt
+	cd $(HOME)/opt/Python-3.7.0
 	if [ -f Makefile ]; then make clean; fi
-	if [ -d $(HOME)/opt/github-repositories/python-3.7.0 ]; then rm -rf $(HOME)/opt/github-repositories/python-3.7.0; fi
-	./configure --prefix=$(HOME)/opt/github-repositories/python-3.7.0 --enable-opt/github-repositoriesimizations
+	if [ -d $(HOME)/opt/python-3.7.0 ]; then rm -rf $(HOME)/opt/python-3.7.0; fi
+	./configure --prefix=$(HOME)/opt/python-3.7.0 --enable-optimizations
 	make
 	make install
 
 .ONESHELL:
-r3.5.0:
-	sudo apt-get install libcairo2-dev libxt-dev libtiff5-dev libssh2-1-dev libxml libxml2-dev
+r-3.5.0-compile:
+	sudo apt-get install libcairo2-dev libxt-dev libtiff5-dev libssh2-1-dev libxml2 libxml2-dev
 
 	wget https://cloud.r-project.org/bin/linux/ubuntu/bionic-cran35/r-base_3.5.0.orig.tar.gz \
-	-O $(HOME)/opt/github-repositories/ubuntu-software/R-3.5.0.tgz
-	if [ -d $(HOME)/opt/github-repositories/R-3.5.0 ]; then rm -rf $(HOME)/opt/github-repositories/R-3.5.0; fi
-	tar xvzf $(HOME)/opt/github-repositories/ubuntu-software/R-3.5.0.tgz -C $(HOME)/opt/github-repositories
-	cd $(HOME)/opt/github-repositories/R-3.5.0
+	-O $(HOME)/opt/ubuntu-software/R-3.5.0.tgz
+	if [ -d $(HOME)/opt/R-3.5.0 ]; then rm -rf $(HOME)/opt/R-3.5.0; fi
+	tar xvzf $(HOME)/opt/ubuntu-software/R-3.5.0.tgz -C $(HOME)/opt
+	cd $(HOME)/opt/R-3.5.0
 	if [ -f Makefile ]; then make clean; fi
-	if [ -d $(HOME)/opt/github-repositories/r-3.5.0 ]; then rm -rf $(HOME)/opt/github-repositories/r-3.5.0; fi
-	./configure --prefix=$(HOME)/opt/github-repositories/r-3.5.0 --enable-R-shlib --with-blas --with-lapack
+	if [ -d $(HOME)/opt/r-3.5.0 ]; then rm -rf $(HOME)/opt/r-3.5.0; fi
+	./configure --prefix=$(HOME)/opt/r-3.5.0 --enable-R-shlib --with-blas --with-lapack
 	make
 	make install
 
-install-r-packages-local:
+local-r-packages-install:
 	~/bin/R -e "install.packages('tidyverse', dependencies = TRUE)"
 	~/bin/R -e "install.packages('knitr', dependencies = TRUE)"
 	~/bin/R -e "install.packages('rmarkdown', dependencies = TRUE)"
@@ -155,7 +154,7 @@ install-r-packages-local:
 	~/bin/R -e "install.packages('ggpubr', dependencies = TRUE)"
 	~/bin/R -e "install.packages('ape', dependencies = TRUE)"
 	~/bin/R -e "install.packages('biom', dependencies = TRUE)"
-	~/bin/R -e "install.packages('opt/github-repositoriesparse', dependencies = TRUE)"
+	~/bin/R -e "install.packages('optparse', dependencies = TRUE)"
 	~/bin/R -e "install.packages('RColorBrewer', dependencies = TRUE)"
 	~/bin/R -e "install.packages('randomForest', dependencies = TRUE)"
 	~/bin/R -e "install.packages('vegan', dependencies = TRUE)"
@@ -168,18 +167,6 @@ install-r-packages-local:
 	biocLite('DESeq2'); \
 	biocLite('microbiome'); \
 	biocLite('metagenomeSeq')"
-
-# .ONESHELL:
-# update-python3-packages:
-# 	sudo $$(which pip3) list --outdated --format=columns \
-# 	| tail -n +3 | cut -d ' ' -f 1 | \
-# 	sudo -H xargs -n1 $$(which pip3) install --upgrade
-
-# .ONESHELL:
-# update-python2-packages:
-# 	sudo $$(which pip) list --outdated --format=columns \
-# 	| tail -n +3 | cut -d ' ' -f 1 | \
-# 	sudo -H xargs -n1 $$(which pip) install --upgrade
 
 clone-github-repositories:
 	sudo chown -R glucksfall:glucksfall /opt
@@ -268,13 +255,25 @@ clone-github-repositories:
 
 slurm-conf:
 	sudo apt-get -y install slurm-wlm
-	sudo nano /etc/slurm-llnl/slurm.conf
 
-	sudo chown -R slurm:slurm /var/run/slurm-llnl/
+	sudo mkdir -p /var/lib/slurm-llnl
+	sudo mkdir -p /var/lib/slurm-llnl/slurmd
+	sudo mkdir -p /var/lib/slurm-llnl/slurmctld
+	sudo mkdir -p /var/run/slurm-llnl
+	sudo mkdir -p /var/log/slurm-llnl
+
+	sudo touch /var/log/slurm-llnl/slurmd.log
+	sudo touch /var/log/slurm-llnl/slurmctld.log
+
+	sudo chmod -R 755 /var/lib/slurm-llnl/
+	sudo chmod -R 755 /var/run/slurm-llnl/
+	sudo chmod -R 755 /var/log/slurm-llnl/
+
 	sudo chown -R slurm:slurm /var/lib/slurm-llnl/
+	sudo chown -R slurm:slurm /var/run/slurm-llnl/
 	sudo chown -R slurm:slurm /var/log/slurm-llnl/
-	sudo mkdir /var/spool/slurmd
-	sudo chown -R slurm:slurm /var/spool/slurmd
+
+	sudo nano /etc/slurm-llnl/slurm.conf
 
 #	sudo apt-get install mariadb-server
 #	sudo systemctl enable mysql
