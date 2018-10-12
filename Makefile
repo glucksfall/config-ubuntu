@@ -16,7 +16,7 @@ apt-install:
 	inkscape nautilus-dropbox vlc apt-file autoconf libtool cmake net-tools \
 	sshfs libopenmpi-dev npm libcanberra-gtk-module libcanberra-gtk3-module \
 	android-tools-adb android-tools-fastboot libgirepository1.0-dev \
-	virtualbox curl gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 \
+	virtualbox curl gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 rubber \
 	gir1.2-clutter-1.0 rar libreoffice r-base rename pandoc aptitude; \
 	do sudo apt-get -y install $$apt; done
 
