@@ -369,6 +369,7 @@ install-others:
 
 	tar xvzf COPASI-4.24.197-Linux-64bit.tar.gz -C /opt
 	tar xvzf gurobi8.0.1_linux64.tar.gz -C /opt
+	tar xvjf lplinux.tar.bz2 -C /opt/lastpass
 
 .ONESHELL:
 install-matlab-2017b:
