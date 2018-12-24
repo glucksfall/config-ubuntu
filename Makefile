@@ -5,59 +5,77 @@ test:
 
 .ONESHELL:
 apt-install:
-	sudo apt-get update
-	sudo apt-get upgrade
-	sudo apt-get dist-upgrade
-	sudo apt-get remove xul-ext-ubufox gedit
+	sudo apt update
+	sudo apt -y upgrade
+	sudo apt -y dist-upgrade
+	sudo apt -y remove xul-ext-ubufox gedit
 
-	for apt in \
-	gnome-tweak-tool gnome-themes-standard htop kate kompare \
+	APTS="gnome-tweak-tool gnome-themes-standard htop kate kompare \
 	chrome-gnome-shell opam openjdk-8-jre lm-sensors synaptic gparted gimp \
 	inkscape nautilus-dropbox vlc apt-file autoconf libtool cmake net-tools \
 	sshfs libopenmpi-dev npm libcanberra-gtk-module libcanberra-gtk3-module \
 	android-tools-adb android-tools-fastboot libgirepository1.0-dev \
-	virtualbox curl gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 rubber \
-	gir1.2-clutter-1.0 rar libreoffice r-base rename pandoc aptitude; \
-	do sudo apt-get -y install $$apt; done
+	virtualbox curl gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 \
+	gir1.2-clutter-1.0 rar libreoffice r-base rename pandoc aptitude \
+	sra-toolkit"
 
-	sudo apt-get autoremove
-	sudo apt-get autoclean
-	sudo apt-get clean
+	for apt in $$APTS; do sudo apt -y install $$apt; done
+
+	sudo apt -y autoremove
+	sudo apt -y autoclean
+	sudo apt -y clean
 
 latex-install:
 	sudo apt-get -y install texstudio texlive-full
 
+export PYTHON3_PACKAGES=numpy pandas nose python-libsbml \
+	cobra escher seaborn pillow bokeh dnaplotlib pysb \
+	biopython openpyxl xlrd fastcluster scikit-bio \
+	scikit-learn
+
+export PYTHON2_PACKAGES=qiime
+
+export DEV_PACKAGES=testresources twine sphinx sphinx-autobuild \
+	sphinx_rtd_theme versioneer pylint autopep8
+
+export CUDA_PYTHON3_PACKAGES=pycuda torchvision
+
+export JUPYTER_PACKAGES=jupyter jupyterlab ipykernel nbopen rise
+
 local-python-packages-install:
-	~/bin/python3 -c "import pip; pip.main(['install', 'pandas', \
-	'cobra', 'escher', 'seaborn', 'pillow', 'bokeh', 'dnaplotlib', 'pysb', \
-	'biopython', '--upgrade'])"
+	~/bin/pip3 install $$PYTHON3_PACKAGES --upgrade
 
 system-python-packages-install:
 	sudo apt-get -y install python3-pip python3-tk python3-h5py
-	sudo -H pip3 install numpy pandas \
-	cobra escher seaborn pillow bokeh dnaplotlib pysb \
-	biopython --upgrade
 
-	sudo apt-get -y install python-pip python-tk python-h5py
-	sudo -H pip2 install numpy pandas \
-	cobra escher seaborn pillow bokeh dnaplotlib pysb \
-	biopython qiime --upgrade
+	sudo -H pip3 install $$PYTHON3_PACKAGES --upgrade
+	sudo -H pip2 install $$PYTHON2_PACKAGES --upgrade
 
 	# cython makes jupyter to crush; also weave (?)
 
-devtools-python-packages-install:
-	sudo -H python3 -c "import pip; pip.main(['install', 'testresources', \
-	'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme', \
-	'versioneer', 'pylint', 'autopep8', '--upgrade'])"
+cuda-and-python-packages-install:
+	cd /opt/ubuntu-software
 
-	sudo -H python2 -c "import pip; pip.main(['install', 'testresources', \
-	'twine', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme', \
-	'versioneer', 'pylint', 'autopep8', '--upgrade'])"
+	sudo apt -y install linux-headers-$(uname -r)
+	sudo dpkg -i cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb
+	sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub
+	sudo apt update
+	sudo apt -y install cuda
+	sudo apt -y install cuda-toolkit-10-0 cuda-tools-10-0 cuda-runtime-10-0 \
+	cuda-compiler-10-0 cuda-libraries-10-0 cuda-libraries-dev-10-0 cuda-drivers
+
+
+	sudo -H pip3 install http://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-linux_x86_64.whl
+	sudo -H pip3 install $$CUDA_PYTHON3_PACKAGES --upgrade
+
+devtools-python-packages-install:
+	sudo -H pip3 install $$DEV_PACKAGES --upgrade
+	sudo -H pip2 install $$DEV_PACKAGES --upgrade
 
 jupyter-install:
-	sudo -H python3 -c "import pip; pip.main(['install', 'jupyter', \
-	'jupyterlab', 'ipykernel', 'nbopen', 'rise', '--upgrade'])"
+	sudo -H pip3 install $$JUPYTER_PACKAGES --upgrade
 
+	# install python3 kernel
 	python3 -m ipykernel install --user
 	python3 -m nbopen.install_xdg
 
@@ -78,23 +96,25 @@ jupyter-install:
 # 	sudo jupyter-nbextension enable --sys-prefix --py ipyparallel
 # 	sudo jupyter-serverextension enable --sys-prefix --py ipyparallel
 
-jupyter-kernels:
+kernels-jupyter:
 	~/bin/R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'), \
-	repos = 'https://cloud.r-project.org/'); \
+	repos = 'https://cloud.r-project.org/', dependencies = TRUE); \
 	library(devtools); \
-	devtools::install('/opt/git-irkernel-irkernel-master/R'); \
+	devtools::install('/opt/github-repositories/IRkernel.IRkernel/R'); \
 	library(IRkernel); \
 	IRkernel::installspec(name = 'cran')"
 
 	sudo R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'), \
-	repos = 'https://cloud.r-project.org/'); \
+	repos = 'https://cloud.r-project.org/', dependencies = TRUE); \
 	library(devtools); \
-	devtools::install('/opt/git-irkernel-irkernel-master/R'); \
+	devtools::install('/opt/github-repositories/IRkernel.IRkernel/R'); \
 	library(IRkernel); \
 	IRkernel::installspec(name = 'ir')"
 
 .ONESHELL:
 python3.6.5-compile:
+	mkdir -p $(HOME)/opt/ubuntu-software
+
 	sudo apt-get install build-essential checkinstall
 	sudo apt-get install libssl-dev zlib1g-dev libncurses5-dev \
 	libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev \
@@ -103,7 +123,7 @@ python3.6.5-compile:
 	wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz \
 	-O $(HOME)/opt/ubuntu-software/Python-3.6.5.tgz
 	if [ -d $(HOME)/opt/Python-3.6.5 ]; then rm -rf $(HOME)/opt/Python-3.6.5; fi
-	tar xvzf $(HOME)/opt/ubuntu-software/Python-3.6.5.tgz -C ~/opt
+	tar xvzf $(HOME)/opt/ubuntu-software/Python-3.6.5.tgz -C $(HOME)/opt
 	cd $(HOME)/opt/Python-3.6.5
 	if [ -f Makefile ]; then make clean; fi
 	if [ -d $(HOME)/opt/python-3.6.5 ]; then rm -rf $(HOME)/opt/python-3.6.5; fi
@@ -113,6 +133,8 @@ python3.6.5-compile:
 
 .ONESHELL:
 python3.7.0-compile:
+	mkdir -p $(HOME)/opt/ubuntu-software
+
 	sudo apt-get install build-essential checkinstall
 	sudo apt-get install libssl-dev zlib1g-dev libncurses5-dev \
 	libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev \
@@ -121,7 +143,7 @@ python3.7.0-compile:
 	wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz \
 	-O $(HOME)/opt/ubuntu-software/Python-3.7.0.tgz
 	if [ -d $(HOME)/opt/Python-3.7.0 ]; then rm -rf $(HOME)/opt/Python-3.7.0; fi
-	tar xvzf $(HOME)/opt/ubuntu-software/Python-3.7.0.tgz -C ~/opt
+	tar xvzf $(HOME)/opt/ubuntu-software/Python-3.7.0.tgz -C $(HOME)/opt
 	cd $(HOME)/opt/Python-3.7.0
 	if [ -f Makefile ]; then make clean; fi
 	if [ -d $(HOME)/opt/python-3.7.0 ]; then rm -rf $(HOME)/opt/python-3.7.0; fi
@@ -131,6 +153,8 @@ python3.7.0-compile:
 
 .ONESHELL:
 r-3.5.0-compile:
+	mkdir -p $(HOME)/opt/ubuntu-software
+
 	sudo apt-get install libcairo2-dev libxt-dev libtiff5-dev libssh2-1-dev libxml2 libxml2-dev
 
 	wget https://cloud.r-project.org/bin/linux/ubuntu/bionic-cran35/r-base_3.5.0.orig.tar.gz \
@@ -145,32 +169,51 @@ r-3.5.0-compile:
 	make install
 
 local-r-packages-install:
-	~/bin/R -e "install.packages('tidyverse', dependencies = TRUE)"
-	~/bin/R -e "install.packages('knitr', dependencies = TRUE)"
-	~/bin/R -e "install.packages('rmarkdown', dependencies = TRUE)"
-	~/bin/R -e "install.packages('gridExtra', dependencies = TRUE)"
-	~/bin/R -e "install.packages('plotly', dependencies = TRUE)"
-	~/bin/R -e "install.packages('Cairo', dependencies = TRUE)"
-	~/bin/R -e "install.packages('ggpubr', dependencies = TRUE)"
-	~/bin/R -e "install.packages('ape', dependencies = TRUE)"
-	~/bin/R -e "install.packages('biom', dependencies = TRUE)"
-	~/bin/R -e "install.packages('optparse', dependencies = TRUE)"
-	~/bin/R -e "install.packages('RColorBrewer', dependencies = TRUE)"
-	~/bin/R -e "install.packages('randomForest', dependencies = TRUE)"
-	~/bin/R -e "install.packages('vegan', dependencies = TRUE)"
+	~/bin/R -e "install.packages('tidyverse', \
+	dependencies = TRUE, repos = 'https://cloud.r-project.org/')"
+	~/bin/R -e "install.packages('knitr', \
+	dependencies = TRUE, repos = 'https://cloud.r-project.org/')"
+	~/bin/R -e "install.packages('rmarkdown', \
+	dependencies = TRUE, repos = 'https://cloud.r-project.org/')"
+	~/bin/R -e "install.packages('gridExtra', \
+	dependencies = TRUE, repos = 'https://cloud.r-project.org/')"
+	~/bin/R -e "install.packages('plotly', \
+	dependencies = TRUE, repos = 'https://cloud.r-project.org/')"
+	~/bin/R -e "install.packages('Cairo', \
+	dependencies = TRUE, repos = 'https://cloud.r-project.org/')"
+	~/bin/R -e "install.packages('ggpubr', \
+	dependencies = TRUE, repos = 'https://cloud.r-project.org/')"
+	~/bin/R -e "install.packages('ape', \
+	dependencies = TRUE, repos = 'https://cloud.r-project.org/')"
+	~/bin/R -e "install.packages('biom', \
+	dependencies = TRUE, repos = 'https://cloud.r-project.org/')"
+	~/bin/R -e "install.packages('optparse', \
+	dependencies = TRUE, repos = 'https://cloud.r-project.org/')"
+	~/bin/R -e "install.packages('RColorBrewer', \
+	dependencies = TRUE, repos = 'https://cloud.r-project.org/')"
+	~/bin/R -e "install.packages('randomForest', \
+	dependencies = TRUE, repos = 'https://cloud.r-project.org/')"
+	~/bin/R -e "install.packages('vegan', \
+	dependencies = TRUE, repos = 'https://cloud.r-project.org/')"
 
 	# install bioConductor packages
 	~/bin/R -e "source('https://bioconductor.org/biocLite.R'); \
 	biocLite(); \
 	biocLite('dada2'); \
+	biocLite('edgeR'); \
 	biocLite('phyloseq'); \
+	biocLite('DESeq'); \
 	biocLite('DESeq2'); \
 	biocLite('microbiome'); \
 	biocLite('metagenomeSeq')"
 
-clone-github-repositories:
-	sudo chown -R glucksfall:glucksfall /opt
-	
+.ONESHELL:
+github-clone-repositories:
+	sudo chown -R $(USER):$(USER) /opt
+	mkdir -p /opt/github-repositories
+
+	GIT_REPOS=
+
 	# clone
 	git clone https://github.com/20n/act.git \
 	/opt/github-repositories/20n.act
@@ -210,6 +253,9 @@ clone-github-repositories:
 
 	git clone https://github.com/JuliaLang/IJulia.jl.git \
 	/opt/github-repositories/JuliaLang.IJulia
+
+	git clone https://github.com/IRkernel/IRkernel.git \
+	/opt/github-repositories/IRkernel.IRkernel
 
 	git clone https://github.com/Kappa-Dev/KaSim.git \
 	/opt/github-repositories/Kappa-Dev.KaSim3 --branch KaSim3
@@ -252,6 +298,12 @@ clone-github-repositories:
 
 	git clone https://github.com/SysBioChalmers/RAVEN.git \
 	/opt/github-repositories/SysBioChalmers.RAVEN
+
+	printf \
+	"update-git:\n\tfor d in \`find . -maxdepth 1 -type d -not -name .\`; \
+	do printf \'%%s\\\n\' "'"'"\$\$d\""; cd \$\$d; git pull; \
+	git submodule init; git submodule update; printf \'\\\n\'; cd ..; done" \
+	> /opt/github-repositories/Makefile
 
 slurm-conf:
 	sudo apt-get -y install slurm-wlm
@@ -298,7 +350,7 @@ install-others:
 	sudo dpkg -i snapgene_viewer_4.1.9_linux.deb
 	sudo dpkg -i whatsie-2.1.0-linux-amd64.deb
 
-	sudo chown -R glucksfall:glucksfall /opt
+	sudo chown -R $(USER):$(USER) /opt
 
 	sudo apt-get install -f
 	sudo apt-file update
