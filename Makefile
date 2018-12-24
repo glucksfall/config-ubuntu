@@ -17,7 +17,7 @@ apt-install:
 	android-tools-adb android-tools-fastboot libgirepository1.0-dev \
 	virtualbox curl gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 \
 	gir1.2-clutter-1.0 rar libreoffice r-base rename pandoc aptitude \
-	sra-toolkit"
+	sra-toolkit libxm4"
 
 	for apt in $$APTS; do sudo apt -y install $$apt; done
 
@@ -343,27 +343,35 @@ slurm-conf:
 install-others:
 	cd /opt/ubuntu-software/
 
-	sudo dpkg -i gitter_3.1.0_amd64.deb
+	sudo dpkg -i gitter_4.1.0_amd64.deb
 	sudo dpkg -i google-chrome-stable_current_amd64.deb
-	sudo dpkg -i mendeleydesktop_1.17.13-stable_amd64.deb
-	sudo dpkg -i prey_1.6.5_amd64.deb
-	sudo dpkg -i snapgene_viewer_4.1.9_linux.deb
+	sudo dpkg -i kolide_osquery_launcher.deb
+	sudo dpkg -i mendeleydesktop_1.19.2-stable_amd64.deb
+	sudo dpkg -i osquery_3.2.4_1.linux.amd64.deb
+	sudo dpkg -i prey_1.8.2_amd64.deb
+	sudo dpkg -i rstudio-xenial-1.0.153-amd64.deb
+	sudo dpkg -i snapgene_viewer_4.2.6_linux.deb
 	sudo dpkg -i whatsie-2.1.0-linux-amd64.deb
 
 	sudo chown -R $(USER):$(USER) /opt
 
-	sudo apt-get install -f
+	sudo apt -y install -f
+	sudo apt -y update
+	sudo apt -y upgrade
 	sudo apt-file update
 
-	Anaconda3-5.1.0-Linux-x86_64.sh
-	Cytoscape_3_5_1_unix.sh
-	pathway-tools-21.0-linux-64-tier1-install
+	sh Anaconda3-5.3.0-Linux-x86_64.sh
+	sh cplex_studio128.linux-x86-64.bin
+	sh Cytoscape_3_7_0_unix.sh
 
-	tar xvzf gurobi7.5.2_linux64.tar.gz -C /opt
-	tar xvzf COPASI-4.23.184-Linux-64bit.tar.gz -C /opt
+	PTOOLS="pathway-tools-21.5-linux-64-tier1-install"
+	chmod u+x $(PTOOLS); ./$(PTOOLS); chmod u-x $(PTOOLS)
+
+	tar xvzf COPASI-4.24.197-Linux-64bit.tar.gz -C /opt
+	tar xvzf gurobi8.0.1_linux64.tar.gz -C /opt
 
 .ONESHELL:
-install-matlab:
+install-matlab-2017b:
 	cd /opt/ubuntu-software/
 
 	if [[ ! -d /opt/matlab_R2017b_glnxa64 ]]; \
@@ -371,4 +379,15 @@ install-matlab:
 	fi
 
 	cd /opt/matlab_R2017b_glnxa64
+	install
+
+.ONESHELL:
+install-matlab-2018a:
+	cd /opt/ubuntu-software/
+
+	if [[ ! -d /opt/matlab_R2018a_glnxa64 ]]; \
+	then unzip matlab_R2018b_glnxa64.zip -d /opt/matlab_R2018a_glnxa64; \
+	fi
+
+	cd /opt/matlab_R2018a_glnxa64
 	install
