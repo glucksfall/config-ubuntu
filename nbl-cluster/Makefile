@@ -17,7 +17,8 @@ apt-install:
 	android-tools-adb android-tools-fastboot libgirepository1.0-dev \
 	virtualbox curl gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 \
 	gir1.2-clutter-1.0 rar libreoffice r-base rename pandoc aptitude \
-	sra-toolkit libxm4"
+	sra-toolkit libxm4 pdfshuffler ttf-mscorefonts-installer openssh-server \
+	nfs-kernel-server"
 
 	for apt in $$APTS; do sudo apt -y install $$apt; done
 
@@ -31,7 +32,7 @@ latex-install:
 export PYTHON3_PACKAGES=numpy pandas nose python-libsbml \
 	cobra escher seaborn pillow bokeh dnaplotlib pysb \
 	biopython openpyxl xlrd fastcluster scikit-bio \
-	scikit-learn
+	scikit-learn rpy2 tzlocal
 
 export PYTHON2_PACKAGES=qiime
 
@@ -62,8 +63,8 @@ cuda-and-python-packages-install:
 	sudo apt update
 	sudo apt -y install cuda
 	sudo apt -y install cuda-toolkit-10-0 cuda-tools-10-0 cuda-runtime-10-0 \
-	cuda-compiler-10-0 cuda-libraries-10-0 cuda-libraries-dev-10-0 cuda-drivers
-
+	cuda-compiler-10-0 cuda-libraries-10-0 cuda-libraries-dev-10-0 cuda-drivers \
+	nvidia-cuda-toolkit
 
 	sudo -H pip3 install http://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-linux_x86_64.whl
 	sudo -H pip3 install $$CUDA_PYTHON3_PACKAGES --upgrade
@@ -306,7 +307,7 @@ github-clone-repositories:
 	> /opt/github-repositories/Makefile
 
 slurm-conf:
-	sudo apt-get -y install slurm-wlm
+	sudo apt-get -y install slurm-wlm slurmdbd
 
 	sudo mkdir -p /var/lib/slurm-llnl
 	sudo mkdir -p /var/lib/slurm-llnl/slurmd
