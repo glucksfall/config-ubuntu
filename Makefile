@@ -195,7 +195,7 @@ export R_PACKAGES=tidyverse knitr rmarkdown gridExtra plotly Cairo ggpubr ape \
 
 local-r-libraries-install:
 	# install R packages
-	for package in $$BIOCONDUCTOR; do $$D1/bin/R -e \
+	for package in $$R_PACKAGES; do $$D1/bin/R -e \
 		"install.packages('$$package', dependencies = TRUE, repos = 'https://cloud.r-project.org/')"; done
 
 	# install Bioconductor packages
